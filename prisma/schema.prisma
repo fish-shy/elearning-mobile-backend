@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+model User {
+  id              String         @id @default(uuid())
+  email           String         @unique
+  password        String       
+  name            String?
+  role            Role           @default(STUDENT) 
+  profileImageURL String?        @map("profile_image_url") 
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  // Relationships
+  taughtCourses   Course[]       @relation("TaughtCourses")    
+  enrollments     Enrollment[]                                
+  submissions     Submission[]                                
+}
+
+// --- Course Model ---
+model Course {
+  id              String         @id @default(uuid())
+  title           String
+  description     String?  
+  teacher         User           @relation("TaughtCourses", fields: [teacherId], references: [id])
+  teacherId       String        
+  lessons         Lesson[]
+  enrollments     Enrollment[]                                  
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Enrollment {
+  id        String    @id @default(uuid())
+  student   User      @relation(fields: [studentId], references: [id])
+  studentId String
+  course    Course    @relation(fields: [courseId], references: [id])
+  courseId  String
+  
+  @@unique([studentId, courseId]) 
+}
+
+model Lesson {
+  id              String         @id @default(uuid())
+  title           String
+  content         String         
+  materialFileURL String?        @map("material_file_url")
+  course          Course         @relation(fields: [courseId], references: [id])
+  courseId        String
+  assignments     Assignment[]                               
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Assignment {
+  id          String         @id @default(uuid())
+  title       String
+  description String?
+  dueDate     DateTime?
+  maxPoints   Int            @default(100)
+  lesson      Lesson         @relation(fields: [lessonId], references: [id])
+  lessonId    String
+  submissions Submission[]                               
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Submission {
+  id                String         @id @default(uuid())
+  submissionFileURL String         @map("submission_file_url") 
+  grade             Int?                                        
+  feedback          String?                                     
+  student           User           @relation(fields: [studentId], references: [id])
+  studentId         String
+  assignment        Assignment     @relation(fields: [assignmentId], references: [id])
+  assignmentId      String
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+}
