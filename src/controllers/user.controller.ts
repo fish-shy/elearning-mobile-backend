@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { userService } from '../services/user.service';
 
 export const userController = {
-  // Create a new user
   async create(req: Request, res: Response) {
     try {
       const { email, password, name, role, profileImageURL } = req.body;
@@ -31,7 +30,6 @@ export const userController = {
     }
   },
 
-  // Get all users
   async findAll(req: Request, res: Response) {
     try {
       const users = await userService.findAll();
@@ -42,7 +40,6 @@ export const userController = {
     }
   },
 
-  // Get user by ID
   async findById(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -59,7 +56,6 @@ export const userController = {
     }
   },
 
-  // Update user
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -85,7 +81,6 @@ export const userController = {
     }
   },
 
-  // Delete user
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -103,7 +98,6 @@ export const userController = {
     }
   },
 
-  // Get user with taught courses (for teachers)
   async getTaughtCourses(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -120,7 +114,6 @@ export const userController = {
     }
   },
 
-  // Get user with enrollments (for students)
   async getEnrollments(req: Request, res: Response) {
     try {
       const { id } = req.params;

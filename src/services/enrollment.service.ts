@@ -1,7 +1,6 @@
 import prisma from '../config/prisma';
 
 export const enrollmentService = {
-  // Create a new enrollment (enroll student in course)
   async create(data: { studentId: string; courseId: string }) {
     return prisma.enrollment.create({
       data,
@@ -23,7 +22,6 @@ export const enrollmentService = {
     });
   },
 
-  // Get all enrollments
   async findAll() {
     return prisma.enrollment.findMany({
       include: {
@@ -44,7 +42,6 @@ export const enrollmentService = {
     });
   },
 
-  // Get enrollment by ID
   async findById(id: string) {
     return prisma.enrollment.findUnique({
       where: { id },
@@ -61,7 +58,6 @@ export const enrollmentService = {
     });
   },
 
-  // Get enrollments by student ID
   async findByStudentId(studentId: string) {
     return prisma.enrollment.findMany({
       where: { studentId },
@@ -81,7 +77,6 @@ export const enrollmentService = {
     });
   },
 
-  // Get enrollments by course ID
   async findByCourseId(courseId: string) {
     return prisma.enrollment.findMany({
       where: { courseId },
@@ -97,7 +92,6 @@ export const enrollmentService = {
     });
   },
 
-  // Check if student is enrolled in course
   async isEnrolled(studentId: string, courseId: string) {
     const enrollment = await prisma.enrollment.findUnique({
       where: {
@@ -107,15 +101,16 @@ export const enrollmentService = {
         },
       },
     });
-    return !!enrollment;
+    if(enrollment) {
+      return true;
+    }
+    return false;
   },
 
-  // Delete enrollment (unenroll student from course)
   async delete(id: string) {
     return prisma.enrollment.delete({ where: { id } });
   },
 
-  // Delete by student and course ID
   async deleteByStudentAndCourse(studentId: string, courseId: string) {
     return prisma.enrollment.delete({
       where: {

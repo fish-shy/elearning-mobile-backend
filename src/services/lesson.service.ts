@@ -1,10 +1,10 @@
 import prisma from '../config/prisma';
 
 export const lessonService = {
-  // Create a new lesson
   async create(data: {
     title: string;
     content: string;
+    type: string;
     materialFileURL?: string;
     courseId: string;
   }) {
@@ -21,7 +21,6 @@ export const lessonService = {
     });
   },
 
-  // Get all lessons
   async findAll() {
     return prisma.lesson.findMany({
       include: {
@@ -40,7 +39,6 @@ export const lessonService = {
     });
   },
 
-  // Get lesson by ID
   async findById(id: string) {
     return prisma.lesson.findUnique({
       where: { id },
@@ -56,7 +54,6 @@ export const lessonService = {
     });
   },
 
-  // Get lessons by course ID
   async findByCourseId(courseId: string) {
     return prisma.lesson.findMany({
       where: { courseId },
@@ -73,12 +70,12 @@ export const lessonService = {
     });
   },
 
-  // Update lesson
   async update(
     id: string,
     data: {
       title?: string;
       content?: string;
+      type?: string;
       materialFileURL?: string;
     }
   ) {
@@ -96,7 +93,6 @@ export const lessonService = {
     });
   },
 
-  // Delete lesson
   async delete(id: string) {
     return prisma.lesson.delete({ where: { id } });
   },

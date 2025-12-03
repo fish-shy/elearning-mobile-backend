@@ -1,10 +1,9 @@
 import prisma from '../config/prisma';
-import { Role } from '../generated/client';
+import { Role } from '../../generated/prisma/client';
 
 async function main() {
   console.log('🌱 Starting seeding...');
 
-  // Clear existing data (in reverse order of dependencies)
   console.log('🗑️  Clearing existing data...');
   await prisma.submission.deleteMany();
   await prisma.assignment.deleteMany();
@@ -12,11 +11,10 @@ async function main() {
   await prisma.enrollment.deleteMany();
   await prisma.course.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.fileMetadata.deleteMany();
 
-  // Create Users
   console.log('👥 Creating users...');
   
-  // Teachers
   const teacher1 = await prisma.user.create({
     data: {
       email: 'john.doe@school.com',
@@ -37,7 +35,6 @@ async function main() {
     },
   });
 
-  // Students
   const student1 = await prisma.user.create({
     data: {
       email: 'alice@student.com',
@@ -68,7 +65,6 @@ async function main() {
     },
   });
 
-  // Admin
   const admin = await prisma.user.create({
     data: {
       email: 'admin@school.com',
@@ -81,7 +77,6 @@ async function main() {
 
   console.log(`✅ Created ${6} users`);
 
-  // Create Courses
   console.log('📚 Creating courses...');
   
   const course1 = await prisma.course.create({
@@ -118,7 +113,6 @@ async function main() {
 
   console.log(`✅ Created ${4} courses`);
 
-  // Create Enrollments
   console.log('📝 Creating enrollments...');
   
   await prisma.enrollment.createMany({
@@ -136,14 +130,13 @@ async function main() {
 
   console.log(`✅ Created ${8} enrollments`);
 
-  // Create Lessons
   console.log('📖 Creating lessons...');
   
-  // Lessons for Course 1: Intro to Web Development
   const lesson1_1 = await prisma.lesson.create({
     data: {
       title: 'HTML Basics',
       content: 'Learn the structure of HTML documents, tags, attributes, and semantic HTML5 elements.',
+      type: 'lecture',
       materialFileURL: 'https://example.com/materials/html-basics.pdf',
       courseId: course1.id,
     },
@@ -153,6 +146,7 @@ async function main() {
     data: {
       title: 'CSS Styling',
       content: 'Master CSS selectors, properties, flexbox, and grid layout for responsive designs.',
+      type: 'lecture',
       materialFileURL: 'https://example.com/materials/css-styling.pdf',
       courseId: course1.id,
     },
@@ -162,16 +156,17 @@ async function main() {
     data: {
       title: 'JavaScript Fundamentals',
       content: 'Introduction to JavaScript syntax, variables, functions, and DOM manipulation.',
+      type: 'assignment',
       materialFileURL: 'https://example.com/materials/js-fundamentals.pdf',
       courseId: course1.id,
     },
   });
 
-  // Lessons for Course 2: Advanced JavaScript
   const lesson2_1 = await prisma.lesson.create({
     data: {
       title: 'Closures and Scope',
       content: 'Deep understanding of JavaScript closures, lexical scope, and execution context.',
+      type: 'lecture',
       materialFileURL: 'https://example.com/materials/closures.pdf',
       courseId: course2.id,
     },
@@ -181,16 +176,17 @@ async function main() {
     data: {
       title: 'Async Programming',
       content: 'Master Promises, async/await, and handling asynchronous operations in JavaScript.',
+      type: 'assignment',
       materialFileURL: 'https://example.com/materials/async-js.pdf',
       courseId: course2.id,
     },
   });
 
-  // Lessons for Course 3: Database Design
   const lesson3_1 = await prisma.lesson.create({
     data: {
       title: 'SQL Basics',
       content: 'Learn SQL queries, joins, aggregations, and data manipulation.',
+      type: 'lecture',
       materialFileURL: 'https://example.com/materials/sql-basics.pdf',
       courseId: course3.id,
     },
@@ -200,16 +196,17 @@ async function main() {
     data: {
       title: 'Database Normalization',
       content: 'Understanding normal forms and designing efficient database schemas.',
+      type: 'assignment',
       materialFileURL: 'https://example.com/materials/normalization.pdf',
       courseId: course3.id,
     },
   });
 
-  // Lessons for Course 4: Mobile App Development
   const lesson4_1 = await prisma.lesson.create({
     data: {
       title: 'React Native Basics',
       content: 'Getting started with React Native, components, and styling.',
+      type: 'lecture',
       materialFileURL: 'https://example.com/materials/rn-basics.pdf',
       courseId: course4.id,
     },
@@ -217,7 +214,6 @@ async function main() {
 
   console.log(`✅ Created ${8} lessons`);
 
-  // Create Assignments
   console.log('📋 Creating assignments...');
   
   const assignment1 = await prisma.assignment.create({
@@ -272,7 +268,6 @@ async function main() {
 
   console.log(`✅ Created ${5} assignments`);
 
-  // Create Submissions
   console.log('📤 Creating submissions...');
   
   await prisma.submission.create({
@@ -333,6 +328,19 @@ async function main() {
 
   console.log(`✅ Created ${6} submissions`);
 
+  console.log('📁 Creating file metadata...');
+
+  await prisma.fileMetadata.createMany({
+    data: [
+      { fileName: 'html-basics.pdf', fileSize: 1024000, fileType: 'application/pdf' },
+      { fileName: 'css-styling.pdf', fileSize: 2048000, fileType: 'application/pdf' },
+      { fileName: 'js-fundamentals.pdf', fileSize: 1536000, fileType: 'application/pdf' },
+      { fileName: 'intro-video.mp4', fileSize: 50000000, fileType: 'video/mp4' },
+    ],
+  });
+
+  console.log(`✅ Created ${4} file metadata entries`);
+
   console.log('');
   console.log('🎉 Seeding completed successfully!');
   console.log('');
@@ -343,6 +351,7 @@ async function main() {
   console.log('   - 8 Lessons');
   console.log('   - 5 Assignments');
   console.log('   - 6 Submissions');
+  console.log('   - 4 File Metadata entries');
 }
 
 main()

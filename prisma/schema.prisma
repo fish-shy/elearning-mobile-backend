@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+  // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -28,15 +28,12 @@ model User {
   profileImageURL String?        @map("profile_image_url") 
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  // Relationships
-  taughtCourses   Course[]       @relation("TaughtCourses")    
+  taughtCourses   Course[]       @relation("TaughtCourses")     
   enrollments     Enrollment[]                                
   submissions     Submission[]                                
 }
-
-// --- Course Model ---
 model Course {
-  id              String         @id @default(uuid())
+  id              String         @id @default(uuid()) 
   title           String
   description     String?  
   teacher         User           @relation("TaughtCourses", fields: [teacherId], references: [id])
@@ -64,6 +61,7 @@ model Lesson {
   materialFileURL String?        @map("material_file_url")
   course          Course         @relation(fields: [courseId], references: [id])
   courseId        String
+  type            String // assignment or lecture
   assignments     Assignment[]                               
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
@@ -93,4 +91,12 @@ model Submission {
   assignmentId      String
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
+}
+
+model fileMetadata {
+  id          String    @id @default(uuid())
+  fileName    String    @map("file_name")
+  fileSize    Int       @map("file_size")
+  fileType    String    @map("file_type")
+  uploadedAt  DateTime  @default(now()) @map("uploaded_at")
 }

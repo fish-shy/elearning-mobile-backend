@@ -389,7 +389,8 @@ export const ModelName = {
   Enrollment: 'Enrollment',
   Lesson: 'Lesson',
   Assignment: 'Assignment',
-  Submission: 'Submission'
+  Submission: 'Submission',
+  fileMetadata: 'fileMetadata'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "course" | "enrollment" | "lesson" | "assignment" | "submission"
+    modelProps: "user" | "course" | "enrollment" | "lesson" | "assignment" | "submission" | "fileMetadata"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +854,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    fileMetadata: {
+      payload: Prisma.$fileMetadataPayload<ExtArgs>
+      fields: Prisma.fileMetadataFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.fileMetadataFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.fileMetadataFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>
+        }
+        findFirst: {
+          args: Prisma.fileMetadataFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.fileMetadataFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>
+        }
+        findMany: {
+          args: Prisma.fileMetadataFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>[]
+        }
+        create: {
+          args: Prisma.fileMetadataCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>
+        }
+        createMany: {
+          args: Prisma.fileMetadataCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.fileMetadataCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>[]
+        }
+        delete: {
+          args: Prisma.fileMetadataDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>
+        }
+        update: {
+          args: Prisma.fileMetadataUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>
+        }
+        deleteMany: {
+          args: Prisma.fileMetadataDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.fileMetadataUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.fileMetadataUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>[]
+        }
+        upsert: {
+          args: Prisma.fileMetadataUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$fileMetadataPayload>
+        }
+        aggregate: {
+          args: Prisma.FileMetadataAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFileMetadata>
+        }
+        groupBy: {
+          args: Prisma.fileMetadataGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileMetadataGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.fileMetadataCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileMetadataCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -933,6 +1008,7 @@ export const LessonScalarFieldEnum = {
   content: 'content',
   materialFileURL: 'materialFileURL',
   courseId: 'courseId',
+  type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -966,6 +1042,17 @@ export const SubmissionScalarFieldEnum = {
 } as const
 
 export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
+
+
+export const FileMetadataScalarFieldEnum = {
+  id: 'id',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  fileType: 'fileType',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type FileMetadataScalarFieldEnum = (typeof FileMetadataScalarFieldEnum)[keyof typeof FileMetadataScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1152,6 +1239,7 @@ export type GlobalOmitConfig = {
   lesson?: Prisma.LessonOmit
   assignment?: Prisma.AssignmentOmit
   submission?: Prisma.SubmissionOmit
+  fileMetadata?: Prisma.fileMetadataOmit
 }
 
 /* Types for Logging */

@@ -1,7 +1,6 @@
 import prisma from '../config/prisma';
 
 export const assignmentService = {
-  // Create a new assignment
   async create(data: {
     title: string;
     description?: string;
@@ -23,7 +22,6 @@ export const assignmentService = {
     });
   },
 
-  // Get all assignments
   async findAll() {
     return prisma.assignment.findMany({
       include: {
@@ -43,7 +41,6 @@ export const assignmentService = {
     });
   },
 
-  // Get assignment by ID
   async findById(id: string) {
     return prisma.assignment.findUnique({
       where: { id },
@@ -75,7 +72,6 @@ export const assignmentService = {
     });
   },
 
-  // Get assignments by lesson ID
   async findByLessonId(lessonId: string) {
     return prisma.assignment.findMany({
       where: { lessonId },
@@ -92,7 +88,6 @@ export const assignmentService = {
     });
   },
 
-  // Get assignments by course ID
   async findByCourseId(courseId: string) {
     return prisma.assignment.findMany({
       where: {
@@ -119,7 +114,6 @@ export const assignmentService = {
     });
   },
 
-  // Update assignment
   async update(
     id: string,
     data: {
@@ -142,8 +136,6 @@ export const assignmentService = {
       },
     });
   },
-
-  // Delete assignment
   async delete(id: string) {
     return prisma.assignment.delete({ where: { id } });
   },

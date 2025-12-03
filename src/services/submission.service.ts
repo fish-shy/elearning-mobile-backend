@@ -1,7 +1,6 @@
 import prisma from '../config/prisma';
 
 export const submissionService = {
-  // Create a new submission
   async create(data: {
     submissionFileURL: string;
     studentId: string;
@@ -28,7 +27,6 @@ export const submissionService = {
     });
   },
 
-  // Get all submissions
   async findAll() {
     return prisma.submission.findMany({
       include: {
@@ -50,7 +48,6 @@ export const submissionService = {
     });
   },
 
-  // Get submission by ID
   async findById(id: string) {
     return prisma.submission.findUnique({
       where: { id },
@@ -82,7 +79,6 @@ export const submissionService = {
     });
   },
 
-  // Get submissions by student ID
   async findByStudentId(studentId: string) {
     return prisma.submission.findMany({
       where: { studentId },
@@ -102,7 +98,6 @@ export const submissionService = {
     });
   },
 
-  // Get submissions by assignment ID
   async findByAssignmentId(assignmentId: string) {
     return prisma.submission.findMany({
       where: { assignmentId },
@@ -121,7 +116,6 @@ export const submissionService = {
     });
   },
 
-  // Grade a submission
   async grade(
     id: string,
     data: {
@@ -151,7 +145,6 @@ export const submissionService = {
     });
   },
 
-  // Update submission
   async update(
     id: string,
     data: {
@@ -182,7 +175,6 @@ export const submissionService = {
     });
   },
 
-  // Delete submission
   async delete(id: string) {
     return prisma.submission.delete({ where: { id } });
   },

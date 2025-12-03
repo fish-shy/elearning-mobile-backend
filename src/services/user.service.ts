@@ -1,8 +1,7 @@
+import { Role } from '../../generated/prisma/enums';
 import prisma from '../config/prisma';
-import { Role } from '../generated/client';
 
 export const userService = {
-  // Create a new user
   async create(data: {
     email: string;
     password: string;
@@ -13,7 +12,6 @@ export const userService = {
     return prisma.user.create({ data });
   },
 
-  // Get all users
   async findAll() {
     return prisma.user.findMany({
       select: {
@@ -28,7 +26,6 @@ export const userService = {
     });
   },
 
-  // Get user by ID
   async findById(id: string) {
     return prisma.user.findUnique({
       where: { id },
@@ -44,14 +41,12 @@ export const userService = {
     });
   },
 
-  // Get user by email (including password for auth)
   async findByEmail(email: string) {
     return prisma.user.findUnique({
       where: { email },
     });
   },
 
-  // Update user
   async update(
     id: string,
     data: {
@@ -77,12 +72,10 @@ export const userService = {
     });
   },
 
-  // Delete user
   async delete(id: string) {
     return prisma.user.delete({ where: { id } });
   },
 
-  // Get user with their courses (for teachers)
   async findWithTaughtCourses(id: string) {
     return prisma.user.findUnique({
       where: { id },
@@ -92,7 +85,6 @@ export const userService = {
     });
   },
 
-  // Get user with their enrollments (for students)
   async findWithEnrollments(id: string) {
     return prisma.user.findUnique({
       where: { id },

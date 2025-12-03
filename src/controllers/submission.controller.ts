@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { submissionService } from '../services/submission.service';
 
 export const submissionController = {
-  // Create a new submission
   async create(req: Request, res: Response) {
     try {
       const { submissionFileURL, studentId, assignmentId } = req.body;
@@ -26,7 +25,6 @@ export const submissionController = {
     }
   },
 
-  // Get all submissions
   async findAll(req: Request, res: Response) {
     try {
       const submissions = await submissionService.findAll();
@@ -37,7 +35,6 @@ export const submissionController = {
     }
   },
 
-  // Get submission by ID
   async findById(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -54,7 +51,6 @@ export const submissionController = {
     }
   },
 
-  // Get submissions by student ID
   async findByStudentId(req: Request, res: Response) {
     try {
       const { studentId } = req.params;
@@ -66,7 +62,6 @@ export const submissionController = {
     }
   },
 
-  // Get submissions by assignment ID
   async findByAssignmentId(req: Request, res: Response) {
     try {
       const { assignmentId } = req.params;
@@ -78,7 +73,6 @@ export const submissionController = {
     }
   },
 
-  // Grade a submission
   async grade(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -105,7 +99,6 @@ export const submissionController = {
     }
   },
 
-  // Update submission
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -129,7 +122,6 @@ export const submissionController = {
     }
   },
 
-  // Delete submission
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;

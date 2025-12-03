@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { enrollmentService } from '../services/enrollment.service';
 
 export const enrollmentController = {
-  // Create a new enrollment (enroll student in course)
   async create(req: Request, res: Response) {
     try {
       const { studentId, courseId } = req.body;
@@ -11,7 +10,6 @@ export const enrollmentController = {
         return res.status(400).json({ error: 'StudentId and courseId are required' });
       }
 
-      // Check if already enrolled
       const isEnrolled = await enrollmentService.isEnrolled(studentId, courseId);
       if (isEnrolled) {
         return res.status(409).json({ error: 'Student is already enrolled in this course' });
@@ -29,7 +27,6 @@ export const enrollmentController = {
     }
   },
 
-  // Get all enrollments
   async findAll(req: Request, res: Response) {
     try {
       const enrollments = await enrollmentService.findAll();
@@ -40,7 +37,6 @@ export const enrollmentController = {
     }
   },
 
-  // Get enrollment by ID
   async findById(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -57,7 +53,6 @@ export const enrollmentController = {
     }
   },
 
-  // Get enrollments by student ID
   async findByStudentId(req: Request, res: Response) {
     try {
       const { studentId } = req.params;
@@ -69,7 +64,6 @@ export const enrollmentController = {
     }
   },
 
-  // Get enrollments by course ID
   async findByCourseId(req: Request, res: Response) {
     try {
       const { courseId } = req.params;
@@ -81,7 +75,6 @@ export const enrollmentController = {
     }
   },
 
-  // Delete enrollment (unenroll student from course)
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -99,7 +92,6 @@ export const enrollmentController = {
     }
   },
 
-  // Unenroll by student and course ID
   async unenroll(req: Request, res: Response) {
     try {
       const { studentId, courseId } = req.body;

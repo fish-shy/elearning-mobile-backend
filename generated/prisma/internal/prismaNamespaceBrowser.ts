@@ -56,7 +56,8 @@ export const ModelName = {
   Enrollment: 'Enrollment',
   Lesson: 'Lesson',
   Assignment: 'Assignment',
-  Submission: 'Submission'
+  Submission: 'Submission',
+  fileMetadata: 'fileMetadata'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -116,6 +117,7 @@ export const LessonScalarFieldEnum = {
   content: 'content',
   materialFileURL: 'materialFileURL',
   courseId: 'courseId',
+  type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -149,6 +151,17 @@ export const SubmissionScalarFieldEnum = {
 } as const
 
 export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
+
+
+export const FileMetadataScalarFieldEnum = {
+  id: 'id',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  fileType: 'fileType',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type FileMetadataScalarFieldEnum = (typeof FileMetadataScalarFieldEnum)[keyof typeof FileMetadataScalarFieldEnum]
 
 
 export const SortOrder = {

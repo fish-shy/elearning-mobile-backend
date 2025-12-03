@@ -67,3 +67,8 @@ export type Assignment = Prisma.AssignmentModel
  * 
  */
 export type Submission = Prisma.SubmissionModel
+/**
+ * Model fileMetadata
+ * 
+ */
+export type fileMetadata = Prisma.fileMetadataModel

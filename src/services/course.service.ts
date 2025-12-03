@@ -1,7 +1,6 @@
 import prisma from '../config/prisma';
 
 export const courseService = {
-  // Create a new course
   async create(data: {
     title: string;
     description?: string;
@@ -21,7 +20,6 @@ export const courseService = {
     });
   },
 
-  // Get all courses
   async findAll() {
     return prisma.course.findMany({
       include: {
@@ -42,7 +40,6 @@ export const courseService = {
     });
   },
 
-  // Get course by ID
   async findById(id: string) {
     return prisma.course.findUnique({
       where: { id },
@@ -70,7 +67,6 @@ export const courseService = {
     });
   },
 
-  // Get courses by teacher ID
   async findByTeacherId(teacherId: string) {
     return prisma.course.findMany({
       where: { teacherId },
@@ -85,7 +81,6 @@ export const courseService = {
     });
   },
 
-  // Update course
   async update(
     id: string,
     data: {
@@ -108,7 +103,6 @@ export const courseService = {
     });
   },
 
-  // Delete course
   async delete(id: string) {
     return prisma.course.delete({ where: { id } });
   },

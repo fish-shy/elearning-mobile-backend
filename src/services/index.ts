@@ -4,3 +4,4 @@ export { enrollmentService } from './enrollment.service';
 export { lessonService } from './lesson.service';
 export { assignmentService } from './assignment.service';
 export { submissionService } from './submission.service';
+export { fileMetadataService } from './fileMetadata.service';

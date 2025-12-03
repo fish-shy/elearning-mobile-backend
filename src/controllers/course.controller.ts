@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { courseService } from '../services/course.service';
 
 export const courseController = {
-  // Create a new course
   async create(req: Request, res: Response) {
     try {
       const { title, description, teacherId } = req.body;
@@ -24,7 +23,6 @@ export const courseController = {
     }
   },
 
-  // Get all courses
   async findAll(req: Request, res: Response) {
     try {
       const courses = await courseService.findAll();
@@ -35,7 +33,6 @@ export const courseController = {
     }
   },
 
-  // Get course by ID
   async findById(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -52,7 +49,6 @@ export const courseController = {
     }
   },
 
-  // Get courses by teacher ID
   async findByTeacherId(req: Request, res: Response) {
     try {
       const { teacherId } = req.params;
@@ -64,7 +60,6 @@ export const courseController = {
     }
   },
 
-  // Update course
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -87,7 +82,6 @@ export const courseController = {
     }
   },
 
-  // Delete course
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
