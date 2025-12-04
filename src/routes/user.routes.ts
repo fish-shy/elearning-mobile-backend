@@ -9,7 +9,6 @@ router.get('/', authenticateToken, userController.findAll);
 router.get('/:id', authenticateToken, userController.findById);
 router.put('/:id', authenticateToken, userController.update);
 router.delete('/:id', authenticateToken, requireAdmin, userController.delete);
-
 router.get('/:id/taught-courses', authenticateToken, userController.getTaughtCourses);
 router.get('/:id/enrollments', authenticateToken, userController.getEnrollments);
 

@@ -1,5 +1,5 @@
 import prisma from '../config/prisma';
-import { Role } from '../../generated/prisma/client';
+import { Role } from '../generated/prisma/client';
 
 async function main() {
   console.log('🌱 Starting seeding...');

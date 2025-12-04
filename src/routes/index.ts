@@ -7,6 +7,7 @@ import assignmentRoutes from './assignment.routes';
 import submissionRoutes from './submission.routes';
 import fileMetadataRoutes from './fileMetadata.routes';
 import authRoutes from './auth.routes';
+import uploadRoutes from './upload.routes';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/lessons', lessonRoutes);
 router.use('/assignments', assignmentRoutes);
 router.use('/submissions', submissionRoutes);
 router.use('/files', fileMetadataRoutes);
+router.use('/upload', uploadRoutes);
 
 export default router;

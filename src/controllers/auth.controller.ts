@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken';
 import { userService } from '../services';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
 export const authController = {
   async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
-
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required' });
       }
@@ -32,7 +32,7 @@ export const authController = {
 
   async register(req: Request, res: Response) {
     try {
-      const { email, password, name, role, profileImageURL } = req.body;
+      const { email, password, name, role} = req.body;
       if (!email || !password || !name) {
         return res.status(400).json({ error: 'Email, password, and name are required' });
       }
@@ -45,7 +45,7 @@ export const authController = {
         password,
         name,
         role: role || 'STUDENT',
-        profileImageURL,
+        profileImageURL :"https://th.bing.com/th/id/R.20f9aeb3a5d4530947122ea620351f13?rik=ebj7QoY1q9UIHA&riu=http%3a%2f%2fwww.anime-evo.net%2fwp-content%2fuploads%2f2024%2f07%2fAlya_01_7.jpg&ehk=92PwAmXPHHiIWhzVfVQG39gBnu7B9MPZNjCZP427IGM%3d&risl=&pid=ImgRaw&r=0",
       });
       const token = jwt.sign(
         { id: user.id, email: user.email, role: user.role },
