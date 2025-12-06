@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fileMetadataController = exports.submissionController = exports.assignmentController = exports.lessonController = exports.enrollmentController = exports.courseController = exports.userController = void 0;
+var user_controller_1 = require("./user.controller");
+Object.defineProperty(exports, "userController", { enumerable: true, get: function () { return user_controller_1.userController; } });
+var course_controller_1 = require("./course.controller");
+Object.defineProperty(exports, "courseController", { enumerable: true, get: function () { return course_controller_1.courseController; } });
+var enrollment_controller_1 = require("./enrollment.controller");
+Object.defineProperty(exports, "enrollmentController", { enumerable: true, get: function () { return enrollment_controller_1.enrollmentController; } });
+var lesson_controller_1 = require("./lesson.controller");
+Object.defineProperty(exports, "lessonController", { enumerable: true, get: function () { return lesson_controller_1.lessonController; } });
+var assignment_controller_1 = require("./assignment.controller");
+Object.defineProperty(exports, "assignmentController", { enumerable: true, get: function () { return assignment_controller_1.assignmentController; } });
+var submission_controller_1 = require("./submission.controller");
+Object.defineProperty(exports, "submissionController", { enumerable: true, get: function () { return submission_controller_1.submissionController; } });
+var fileMetadata_controller_1 = require("./fileMetadata.controller");
+Object.defineProperty(exports, "fileMetadataController", { enumerable: true, get: function () { return fileMetadata_controller_1.fileMetadataController; } });

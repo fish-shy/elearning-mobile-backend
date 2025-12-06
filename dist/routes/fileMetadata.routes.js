@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const fileMetadata_controller_1 = require("../controllers/fileMetadata.controller");
+const middleware_1 = require("../middleware");
+const router = (0, express_1.Router)();
+router.post('/', middleware_1.authenticateToken, fileMetadata_controller_1.fileMetadataController.create);
+router.get('/', middleware_1.authenticateToken, fileMetadata_controller_1.fileMetadataController.findAll);
+router.get('/:id', middleware_1.authenticateToken, fileMetadata_controller_1.fileMetadataController.findById);
+router.get('/type/:fileType', middleware_1.authenticateToken, fileMetadata_controller_1.fileMetadataController.findByType);
+router.put('/:id', middleware_1.authenticateToken, fileMetadata_controller_1.fileMetadataController.update);
+router.delete('/:id', middleware_1.authenticateToken, fileMetadata_controller_1.fileMetadataController.delete);
+exports.default = router;

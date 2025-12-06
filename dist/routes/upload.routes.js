@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const upload_controller_1 = require("../controllers/upload.controller");
+const uploadConfig_1 = require("../utils/uploadConfig");
+const middleware_1 = require("../middleware");
+const router = (0, express_1.Router)();
+router.post('/single', middleware_1.authenticateToken, uploadConfig_1.upload.single('file'), upload_controller_1.uploadController.uploadSingle);
+router.post('/multiple', middleware_1.authenticateToken, uploadConfig_1.upload.array('files', 10), upload_controller_1.uploadController.uploadMultiple);
+router.post('/profile-image', middleware_1.authenticateToken, uploadConfig_1.upload.single('image'), upload_controller_1.uploadController.uploadProfileImage);
+router.post('/course-image', middleware_1.authenticateToken, middleware_1.requireTeacher, uploadConfig_1.upload.single('image'), upload_controller_1.uploadController.uploadCourseImage);
+router.post('/lesson-content', middleware_1.authenticateToken, middleware_1.requireTeacher, uploadConfig_1.upload.single('file'), upload_controller_1.uploadController.uploadLessonContent);
+router.post('/submission', middleware_1.authenticateToken, uploadConfig_1.upload.single('file'), upload_controller_1.uploadController.uploadSubmission);
+router.delete('/:id', middleware_1.authenticateToken, upload_controller_1.uploadController.deleteFile);
+exports.default = router;

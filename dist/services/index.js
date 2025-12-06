@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fileMetadataService = exports.submissionService = exports.assignmentService = exports.lessonService = exports.enrollmentService = exports.courseService = exports.userService = void 0;
+var user_service_1 = require("./user.service");
+Object.defineProperty(exports, "userService", { enumerable: true, get: function () { return user_service_1.userService; } });
+var course_service_1 = require("./course.service");
+Object.defineProperty(exports, "courseService", { enumerable: true, get: function () { return course_service_1.courseService; } });
+var enrollment_service_1 = require("./enrollment.service");
+Object.defineProperty(exports, "enrollmentService", { enumerable: true, get: function () { return enrollment_service_1.enrollmentService; } });
+var lesson_service_1 = require("./lesson.service");
+Object.defineProperty(exports, "lessonService", { enumerable: true, get: function () { return lesson_service_1.lessonService; } });
+var assignment_service_1 = require("./assignment.service");
+Object.defineProperty(exports, "assignmentService", { enumerable: true, get: function () { return assignment_service_1.assignmentService; } });
+var submission_service_1 = require("./submission.service");
+Object.defineProperty(exports, "submissionService", { enumerable: true, get: function () { return submission_service_1.submissionService; } });
+var fileMetadata_service_1 = require("./fileMetadata.service");
+Object.defineProperty(exports, "fileMetadataService", { enumerable: true, get: function () { return fileMetadata_service_1.fileMetadataService; } });

@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const submission_controller_1 = require("../controllers/submission.controller");
+const middleware_1 = require("../middleware");
+const router = (0, express_1.Router)();
+router.post('/', middleware_1.authenticateToken, submission_controller_1.submissionController.create);
+router.get('/', middleware_1.authenticateToken, submission_controller_1.submissionController.findAll);
+router.get('/:id', middleware_1.authenticateToken, submission_controller_1.submissionController.findById);
+router.put('/:id', middleware_1.authenticateToken, submission_controller_1.submissionController.update);
+router.delete('/:id', middleware_1.authenticateToken, submission_controller_1.submissionController.delete);
+router.get('/student', middleware_1.authenticateToken, submission_controller_1.submissionController.findByStudentId);
+router.get('/assignment/:assignmentId', middleware_1.authenticateToken, submission_controller_1.submissionController.findByAssignmentId);
+router.patch('/:id/grade', middleware_1.authenticateToken, middleware_1.requireTeacher, submission_controller_1.submissionController.grade);
+router.get('/assignment/:assignmentId/student', middleware_1.authenticateToken, submission_controller_1.submissionController.findByAssignmentAndStudentId);
+router.post('/assignment/:assignmentId/student', middleware_1.authenticateToken, submission_controller_1.submissionController.findByAssignmentAndStudentId);
+exports.default = router;
