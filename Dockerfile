@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma ./prisma/
-
+ENV NODE_ENV=production
 # 1. Install dependencies normal
 RUN npm install
 
