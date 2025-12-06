@@ -6,7 +6,7 @@ import { corsMiddleware, requestLogger, errorHandler, notFoundHandler } from './
 dotenv.config();
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(corsMiddleware);
 app.use(requestLogger);
@@ -22,7 +22,7 @@ app.use('/api', routes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(Number(PORT), '0.0.0.0', () => {
   console.log(`🚀 Server running with Prisma 7 on http://localhost:${PORT}`);
   console.log(`📚 API endpoints available at http://localhost:${PORT}/api`);
 });
