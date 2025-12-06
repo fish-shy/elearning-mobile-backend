@@ -25,8 +25,11 @@ export const courseController = {
   },
 
   async getStudentCourses(req: any, res: Response) {
-    try{
+    try {
       const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
       const courses = await courseService.findAllByStudentId(userId);
       res.json(courses);
     }catch(error){
