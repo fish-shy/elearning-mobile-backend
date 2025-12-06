@@ -8,19 +8,19 @@ export const uploadController = {
       if (!req.file) {
         return res.status(400).json({ error: 'No file provided' });
       }
-
       const folder = req.body.folder || 'uploads';
+      console.log('Uploading to folder:', folder);
       const publicUrl = await uploadToGCS(req.file, folder);
-
       const fileMetadata = await fileMetadataService.create({
         fileName: req.file.originalname,
         fileSize: req.file.size,
         fileType: req.file.mimetype,
+        fileUrl: publicUrl,
       });
-
       res.status(201).json({
         message: 'File uploaded successfully',
         url: publicUrl,
+        id: fileMetadata.id,
         metadata: fileMetadata,
       });
     } catch (error) {
@@ -45,6 +45,7 @@ export const uploadController = {
             fileName: file.originalname,
             fileSize: file.size,
             fileType: file.mimetype,
+            fileUrl: publicUrl,
           });
           return { url: publicUrl, metadata };
         })
@@ -108,6 +109,7 @@ export const uploadController = {
         fileName: req.file.originalname,
         fileSize: req.file.size,
         fileType: req.file.mimetype,
+        fileUrl: publicUrl,
       });
 
       res.status(201).json({
@@ -133,6 +135,7 @@ export const uploadController = {
         fileName: req.file.originalname,
         fileSize: req.file.size,
         fileType: req.file.mimetype,
+        fileUrl: publicUrl,
       });
 
       res.status(201).json({
@@ -148,18 +151,24 @@ export const uploadController = {
 
   async deleteFile(req: Request, res: Response) {
     try {
-      const { fileUrl } = req.body;
-
-      if (!fileUrl) {
-        return res.status(400).json({ error: 'File URL is required' });
+      const { id } = req.params;
+      
+      if (!id) {
+        return res.status(400).json({ error: 'File ID is required' });
       }
 
-      await deleteFromGCS(fileUrl);
+      const file = await fileMetadataService.findById(id);
+      if (!file) {
+        return res.status(404).json({ error: 'File not found' });
+      }
 
+      await fileMetadataService.delete(id);
       res.status(200).json({ message: 'File deleted successfully' });
     } catch (error) {
       console.error('Error deleting file:', error);
       res.status(500).json({ error: 'Failed to delete file' });
     }
   },
+
+
 };

@@ -4,20 +4,29 @@ import { lessonService } from '../services/lesson.service';
 export const lessonController = {
   async create(req: Request, res: Response) {
     try {
-      const { title, content, type, materialFileURL, courseId } = req.body;
+      const { title, content, fileId, courseId, assignment } = req.body;
 
-      if (!title || !content || !type || !courseId) {
-        return res.status(400).json({ error: 'Title, content, type, and courseId are required' });
+      if (!title || !courseId) {
+        return res.status(400).json({ error: 'Title and courseId are required' });
       }
 
-      const lesson = await lessonService.create({
+      const lessonData: any = {
         title,
         content,
-        type,
-        materialFileURL,
+        fileId,
         courseId,
-      });
+      };
 
+      if (assignment) {
+        lessonData.assignment = {
+          title: assignment.title,
+          description: assignment.description,
+          dueDate: assignment.dueDate ? new Date(assignment.dueDate) : undefined,
+          maxPoints: assignment.maxPoints,
+        };
+      }
+
+      const lesson = await lessonService.create(lessonData);
       res.status(201).json(lesson);
     } catch (error) {
       console.error('Error creating lesson:', error);
@@ -65,8 +74,7 @@ export const lessonController = {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { title, content, type, materialFileURL } = req.body;
-
+      const { title, content, fileId } = req.body;
       const existingLesson = await lessonService.findById(id);
       if (!existingLesson) {
         return res.status(404).json({ error: 'Lesson not found' });
@@ -75,8 +83,7 @@ export const lessonController = {
       const lesson = await lessonService.update(id, {
         title,
         content,
-        type,
-        materialFileURL,
+        fileId,
       });
 
       res.json(lesson);

@@ -6,9 +6,11 @@ const router = Router();
 
 router.post('/', authenticateToken, requireTeacher, courseController.create);
 router.get('/', courseController.findAll);
+router.get('/student', authenticateToken, courseController.getStudentCourses);
+router.post('/', authenticateToken, courseController.create);
 router.get('/:id', courseController.findById);
 router.put('/:id', authenticateToken, requireTeacher, courseController.update);
 router.delete('/:id', authenticateToken, requireTeacher, courseController.delete);
-router.get('/teacher/:teacherId', courseController.findByTeacherId);
+router.get('/teacher', authenticateToken, requireTeacher, courseController.findByTeacherId);
 
 export default router;

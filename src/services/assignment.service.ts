@@ -8,6 +8,14 @@ export const assignmentService = {
     maxPoints?: number;
     lessonId: string;
   }) {
+    const existingAssignment = await prisma.assignment.findUnique({
+      where: { lessonId: data.lessonId },
+    });
+
+    if (existingAssignment) {
+      throw new Error('Lesson already has an assignment');
+    }
+
     return prisma.assignment.create({
       data,
       include: {
@@ -73,7 +81,7 @@ export const assignmentService = {
   },
 
   async findByLessonId(lessonId: string) {
-    return prisma.assignment.findMany({
+    return prisma.assignment.findUnique({
       where: { lessonId },
       include: {
         _count: {
@@ -81,9 +89,6 @@ export const assignmentService = {
             submissions: true,
           },
         },
-      },
-      orderBy: {
-        dueDate: 'asc',
       },
     });
   },
@@ -136,7 +141,9 @@ export const assignmentService = {
       },
     });
   },
+
   async delete(id: string) {
+    await prisma.submission.deleteMany({ where: { assignmentId: id } });
     return prisma.assignment.delete({ where: { id } });
   },
 };

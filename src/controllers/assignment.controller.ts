@@ -19,8 +19,11 @@ export const assignmentController = {
       });
 
       res.status(201).json(assignment);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating assignment:', error);
+      if (error.message === 'Lesson already has an assignment') {
+        return res.status(409).json({ error: 'Lesson already has an assignment (one-to-one relationship)' });
+      }
       res.status(500).json({ error: 'Failed to create assignment' });
     }
   },
@@ -54,11 +57,16 @@ export const assignmentController = {
   async findByLessonId(req: Request, res: Response) {
     try {
       const { lessonId } = req.params;
-      const assignments = await assignmentService.findByLessonId(lessonId);
-      res.json(assignments);
+      const assignment = await assignmentService.findByLessonId(lessonId);
+      
+      if (!assignment) {
+        return res.status(404).json({ error: 'No assignment found for this lesson' });
+      }
+      
+      res.json(assignment);
     } catch (error) {
-      console.error('Error fetching lesson assignments:', error);
-      res.status(500).json({ error: 'Failed to fetch lesson assignments' });
+      console.error('Error fetching lesson assignment:', error);
+      res.status(500).json({ error: 'Failed to fetch lesson assignment' });
     }
   },
 

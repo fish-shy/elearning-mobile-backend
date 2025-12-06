@@ -4,16 +4,17 @@ import { fileMetadataService } from '../services/fileMetadata.service';
 export const fileMetadataController = {
   async create(req: Request, res: Response) {
     try {
-      const { fileName, fileSize, fileType } = req.body;
+      const { fileName, fileSize, fileType, fileUrl } = req.body;
 
-      if (!fileName || !fileSize || !fileType) {
-        return res.status(400).json({ error: 'fileName, fileSize, and fileType are required' });
+      if (!fileName || !fileSize || !fileType || !fileUrl) {
+        return res.status(400).json({ error: 'fileName, fileSize, fileType, and fileUrl are required' });
       }
 
       const fileMetadata = await fileMetadataService.create({
         fileName,
         fileSize,
         fileType,
+        fileUrl,
       });
 
       res.status(201).json(fileMetadata);

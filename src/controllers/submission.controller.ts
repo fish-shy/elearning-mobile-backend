@@ -2,19 +2,29 @@ import { Request, Response } from 'express';
 import { submissionService } from '../services/submission.service';
 
 export const submissionController = {
-  async create(req: Request, res: Response) {
+  async create(req: any, res: Response) {
     try {
-      const { submissionFileURL, studentId, assignmentId } = req.body;
-
-      if (!submissionFileURL || !studentId || !assignmentId) {
+      const { fileId, submissionText,assignmentId } = req.body;
+      const userId = req.user?.id;
+      
+      if (!userId || !assignmentId) {
+        console.log('UserId and assignmentId are required');
         return res.status(400).json({
-          error: 'SubmissionFileURL, studentId, and assignmentId are required',
+          error: 'UserId and assignmentId are required',
+        });
+      }
+
+      if (!fileId && !submissionText) {
+        console.log('Either fileId or submissionText is required');
+        return res.status(400).json({
+          error: 'Either fileId or submissionText is required',
         });
       }
 
       const submission = await submissionService.create({
-        submissionFileURL,
-        studentId,
+        fileId,
+        submissionText,
+        studentId: userId ,
         assignmentId,
       });
 
@@ -24,7 +34,7 @@ export const submissionController = {
       res.status(500).json({ error: 'Failed to create submission' });
     }
   },
-
+  
   async findAll(req: Request, res: Response) {
     try {
       const submissions = await submissionService.findAll();
@@ -53,8 +63,8 @@ export const submissionController = {
 
   async findByStudentId(req: Request, res: Response) {
     try {
-      const { studentId } = req.params;
-      const submissions = await submissionService.findByStudentId(studentId);
+      const { id } = req.params;
+      const submissions = await submissionService.findByStudentId(id);
       res.json(submissions);
     } catch (error) {
       console.error('Error fetching student submissions:', error);
@@ -66,6 +76,19 @@ export const submissionController = {
     try {
       const { assignmentId } = req.params;
       const submissions = await submissionService.findByAssignmentId(assignmentId);
+      res.json(submissions);
+    } catch (error) {
+      console.error('Error fetching assignment submissions:', error);
+      res.status(500).json({ error: 'Failed to fetch assignment submissions' });
+    }
+  },
+
+  async findByAssignmentAndStudentId(req: any, res: Response) {
+    try {
+      const userId = req.user?.id;
+      const { assignmentId } = req.params;
+      const submissions = await submissionService.findByAssignmentIdAndStudentId(assignmentId, userId);
+      console.log(submissions);
       res.json(submissions);
     } catch (error) {
       console.error('Error fetching assignment submissions:', error);
@@ -102,7 +125,7 @@ export const submissionController = {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { submissionFileURL, grade, feedback } = req.body;
+      const { fileId, submissionText, grade, feedback } = req.body;
 
       const existingSubmission = await submissionService.findById(id);
       if (!existingSubmission) {
@@ -110,10 +133,11 @@ export const submissionController = {
       }
 
       const submission = await submissionService.update(id, {
-        submissionFileURL,
+        fileId,
+        submissionText,
         grade,
-        feedback,
-      });
+      feedback,
+    });
 
       res.json(submission);
     } catch (error) {

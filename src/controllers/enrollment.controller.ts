@@ -112,4 +112,58 @@ export const enrollmentController = {
       res.status(500).json({ error: 'Failed to unenroll student' });
     }
   },
+
+  async markLessonComplete(req: Request, res: Response) {
+    try {
+      const { studentId, courseId, lessonId } = req.body;
+
+      if (!studentId || !courseId || !lessonId) {
+        return res.status(400).json({ error: 'StudentId, courseId, and lessonId are required' });
+      }
+
+      const enrollment = await enrollmentService.markLessonComplete(studentId, courseId, lessonId);
+      res.json(enrollment);
+    } catch (error: any) {
+      console.error('Error marking lesson complete:', error);
+      if (error.message === 'Enrollment not found') {
+        return res.status(404).json({ error: 'Enrollment not found' });
+      }
+      res.status(500).json({ error: 'Failed to mark lesson complete' });
+    }
+  },
+
+  async markLessonIncomplete(req: Request, res: Response) {
+    try {
+      const { studentId, courseId, lessonId } = req.body;
+
+      if (!studentId || !courseId || !lessonId) {
+        return res.status(400).json({ error: 'StudentId, courseId, and lessonId are required' });
+      }
+
+      const enrollment = await enrollmentService.markLessonIncomplete(studentId, courseId, lessonId);
+      res.json(enrollment);
+    } catch (error: any) {
+      console.error('Error marking lesson incomplete:', error);
+      if (error.message === 'Enrollment not found') {
+        return res.status(404).json({ error: 'Enrollment not found' });
+      }
+      res.status(500).json({ error: 'Failed to mark lesson incomplete' });
+    }
+  },
+
+  async getCompletedLessons(req: Request, res: Response) {
+    try {
+      const { studentId, courseId } = req.params;
+
+      if (!studentId || !courseId) {
+        return res.status(400).json({ error: 'StudentId and courseId are required' });
+      }
+
+      const completedLessonIds = await enrollmentService.getCompletedLessons(studentId, courseId);
+      res.json({ completedLessonIds });
+    } catch (error) {
+      console.error('Error fetching completed lessons:', error);
+      res.status(500).json({ error: 'Failed to fetch completed lessons' });
+    }
+  },
 };

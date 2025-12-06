@@ -4,7 +4,7 @@ import { courseService } from '../services/course.service';
 export const courseController = {
   async create(req: Request, res: Response) {
     try {
-      const { title, description, teacherId } = req.body;
+      const { title, description, imagePath, teacherId } = req.body;
 
       if (!title || !teacherId) {
         return res.status(400).json({ error: 'Title and teacherId are required' });
@@ -13,6 +13,7 @@ export const courseController = {
       const course = await courseService.create({
         title,
         description,
+        imagePath,
         teacherId,
       });
 
@@ -20,6 +21,17 @@ export const courseController = {
     } catch (error) {
       console.error('Error creating course:', error);
       res.status(500).json({ error: 'Failed to create course' });
+    }
+  },
+
+  async getStudentCourses(req: any, res: Response) {
+    try{
+      const userId = req.user?.id;
+      const courses = await courseService.findAllByStudentId(userId);
+      res.json(courses);
+    }catch(error){
+      console.error('Error fetching student courses:', error);
+      res.status(500).json({ error: 'Failed to fetch student courses' });
     }
   },
 
@@ -63,7 +75,7 @@ export const courseController = {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { title, description } = req.body;
+      const { title, description, imagePath } = req.body;
 
       const existingCourse = await courseService.findById(id);
       if (!existingCourse) {
@@ -73,6 +85,7 @@ export const courseController = {
       const course = await courseService.update(id, {
         title,
         description,
+        imagePath,
       });
 
       res.json(course);

@@ -1,7 +1,7 @@
 import prisma from '../config/prisma';
 
 export const enrollmentService = {
-  async create(data: { studentId: string; courseId: string }) {
+  async create(data: { studentId: string; courseId: string; completedLessonIds?: string[] }) {
     return prisma.enrollment.create({
       data,
       include: {
@@ -105,6 +105,83 @@ export const enrollmentService = {
       return true;
     }
     return false;
+  },
+
+  async markLessonComplete(studentId: string, courseId: string, lessonId: string) {
+    const enrollment = await prisma.enrollment.findUnique({
+      where: {
+        studentId_courseId: {
+          studentId,
+          courseId,
+        },
+      },
+    });
+
+    if (!enrollment) {
+      throw new Error('Enrollment not found');
+    }
+
+    const completedLessonIds = enrollment.completedLessonIds || [];
+    if (!completedLessonIds.includes(lessonId)) {
+      completedLessonIds.push(lessonId);
+    }
+
+    return prisma.enrollment.update({
+      where: {
+        studentId_courseId: {
+          studentId,
+          courseId,
+        },
+      },
+      data: {
+        completedLessonIds,
+      },
+    });
+  },
+
+  async markLessonIncomplete(studentId: string, courseId: string, lessonId: string) {
+    const enrollment = await prisma.enrollment.findUnique({
+      where: {
+        studentId_courseId: {
+          studentId,
+          courseId,
+        },
+      },
+    });
+
+    if (!enrollment) {
+      throw new Error('Enrollment not found');
+    }
+
+    const completedLessonIds = (enrollment.completedLessonIds || []).filter(id => id !== lessonId);
+
+    return prisma.enrollment.update({
+      where: {
+        studentId_courseId: {
+          studentId,
+          courseId,
+        },
+      },
+      data: {
+        completedLessonIds,
+      },
+    });
+  },
+
+  async getCompletedLessons(studentId: string, courseId: string) {
+    const enrollment = await prisma.enrollment.findUnique({
+      where: {
+        studentId_courseId: {
+          studentId,
+          courseId,
+        },
+      },
+      select: {
+        completedLessonIds: true,
+      },
+    });
+
+    return enrollment?.completedLessonIds || [];
   },
 
   async delete(id: string) {

@@ -7,7 +7,7 @@ export const userService = {
     password: string;
     name?: string;
     role?: Role;
-    profileImageURL?: string;
+    profileImageId?: string;
   }) {
     return prisma.user.create({ data });
   },
@@ -19,7 +19,8 @@ export const userService = {
         email: true,
         name: true,
         role: true,
-        profileImageURL: true,
+        profileImageId: true,
+        profileImage: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -34,7 +35,8 @@ export const userService = {
         email: true,
         name: true,
         role: true,
-        profileImageURL: true,
+        profileImageId: true,
+        profileImage: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -54,7 +56,7 @@ export const userService = {
       password?: string;
       name?: string;
       role?: Role;
-      profileImageURL?: string;
+      profileImageId?: string;
     }
   ) {
     return prisma.user.update({
@@ -65,7 +67,8 @@ export const userService = {
         email: true,
         name: true,
         role: true,
-        profileImageURL: true,
+        profileImageId: true,
+        profileImage: true,
         createdAt: true,
         updatedAt: true,
       },

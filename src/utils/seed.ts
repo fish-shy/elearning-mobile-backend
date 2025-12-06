@@ -13,6 +13,105 @@ async function main() {
   await prisma.user.deleteMany();
   await prisma.fileMetadata.deleteMany();
 
+  console.log('📁 Creating file metadata...');
+
+  const profileImage1 = await prisma.fileMetadata.create({
+    data: {
+      fileName: 'john-avatar.png',
+      fileSize: 50000,
+      fileType: 'image/png',
+      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john',
+    },
+  });
+
+  const profileImage2 = await prisma.fileMetadata.create({
+    data: {
+      fileName: 'jane-avatar.png',
+      fileSize: 50000,
+      fileType: 'image/png',
+      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jane',
+    },
+  });
+
+  const profileImage3 = await prisma.fileMetadata.create({
+    data: {
+      fileName: 'alice-avatar.png',
+      fileSize: 50000,
+      fileType: 'image/png',
+      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=alice',
+    },
+  });
+
+  const profileImage4 = await prisma.fileMetadata.create({
+    data: {
+      fileName: 'bob-avatar.png',
+      fileSize: 50000,
+      fileType: 'image/png',
+      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=bob',
+    },
+  });
+
+  const profileImage5 = await prisma.fileMetadata.create({
+    data: {
+      fileName: 'charlie-avatar.png',
+      fileSize: 50000,
+      fileType: 'image/png',
+      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=charlie',
+    },
+  });
+
+  const profileImage6 = await prisma.fileMetadata.create({
+    data: {
+      fileName: 'admin-avatar.png',
+      fileSize: 50000,
+      fileType: 'image/png',
+      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
+    },
+  });
+
+  const lessonFile1 = await prisma.fileMetadata.create({
+    data: { fileName: 'html-basics.pdf', fileSize: 1024000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/html-basics.pdf' },
+  });
+  const lessonFile2 = await prisma.fileMetadata.create({
+    data: { fileName: 'css-styling.pdf', fileSize: 2048000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/css-styling.pdf' },
+  });
+  const lessonFile3 = await prisma.fileMetadata.create({
+    data: { fileName: 'js-fundamentals.pdf', fileSize: 1536000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/js-fundamentals.pdf' },
+  });
+  const lessonFile4 = await prisma.fileMetadata.create({
+    data: { fileName: 'closures.pdf', fileSize: 1200000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/closures.pdf' },
+  });
+  const lessonFile5 = await prisma.fileMetadata.create({
+    data: { fileName: 'async-js.pdf', fileSize: 1800000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/async-js.pdf' },
+  });
+  const lessonFile6 = await prisma.fileMetadata.create({
+    data: { fileName: 'sql-basics.pdf', fileSize: 1400000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/sql-basics.pdf' },
+  });
+  const lessonFile7 = await prisma.fileMetadata.create({
+    data: { fileName: 'normalization.pdf', fileSize: 1600000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/normalization.pdf' },
+  });
+  const lessonFile8 = await prisma.fileMetadata.create({
+    data: { fileName: 'rn-basics.pdf', fileSize: 2200000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/rn-basics.pdf' },
+  });
+
+  const submissionFile1 = await prisma.fileMetadata.create({
+    data: { fileName: 'alice-portfolio.zip', fileSize: 5000000, fileType: 'application/zip', fileUrl: 'https://github.com/alice/portfolio' },
+  });
+  const submissionFile2 = await prisma.fileMetadata.create({
+    data: { fileName: 'bob-portfolio.zip', fileSize: 4500000, fileType: 'application/zip', fileUrl: 'https://github.com/bob/portfolio' },
+  });
+  const submissionFile3 = await prisma.fileMetadata.create({
+    data: { fileName: 'alice-form-validation.zip', fileSize: 3000000, fileType: 'application/zip', fileUrl: 'https://github.com/alice/form-validation' },
+  });
+  const submissionFile4 = await prisma.fileMetadata.create({
+    data: { fileName: 'charlie-async-exercise.zip', fileSize: 2500000, fileType: 'application/zip', fileUrl: 'https://github.com/charlie/async-exercise' },
+  });
+  const submissionFile5 = await prisma.fileMetadata.create({
+    data: { fileName: 'charlie-db-schema.zip', fileSize: 1500000, fileType: 'application/zip', fileUrl: 'https://github.com/charlie/db-schema' },
+  });
+
+  console.log(`✅ Created file metadata entries`);
+
   console.log('👥 Creating users...');
   
   const teacher1 = await prisma.user.create({
@@ -21,7 +120,7 @@ async function main() {
       password: 'password123',
       name: 'John Doe',
       role: Role.TEACHER,
-      profileImageURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john',
+      profileImageId: profileImage1.id,
     },
   });
 
@@ -31,7 +130,7 @@ async function main() {
       password: 'password123',
       name: 'Jane Smith',
       role: Role.TEACHER,
-      profileImageURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jane',
+      profileImageId: profileImage2.id,
     },
   });
 
@@ -41,7 +140,7 @@ async function main() {
       password: 'password123',
       name: 'Alice Johnson',
       role: Role.STUDENT,
-      profileImageURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=alice',
+      profileImageId: profileImage3.id,
     },
   });
 
@@ -51,7 +150,7 @@ async function main() {
       password: 'password123',
       name: 'Bob Williams',
       role: Role.STUDENT,
-      profileImageURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=bob',
+      profileImageId: profileImage4.id,
     },
   });
 
@@ -61,7 +160,7 @@ async function main() {
       password: 'password123',
       name: 'Charlie Brown',
       role: Role.STUDENT,
-      profileImageURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=charlie',
+      profileImageId: profileImage5.id,
     },
   });
 
@@ -71,11 +170,11 @@ async function main() {
       password: 'admin123',
       name: 'Admin User',
       role: Role.ADMIN,
-      profileImageURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
+      profileImageId: profileImage6.id,
     },
   });
 
-  console.log(`✅ Created ${6} users`);
+  console.log(`✅ Created 6 users`);
 
   console.log('📚 Creating courses...');
   
@@ -83,6 +182,7 @@ async function main() {
     data: {
       title: 'Introduction to Web Development',
       description: 'Learn the fundamentals of HTML, CSS, and JavaScript to build modern websites.',
+      imagePath: 'assets/images/background1.jpg',
       teacherId: teacher1.id,
     },
   });
@@ -91,6 +191,7 @@ async function main() {
     data: {
       title: 'Advanced JavaScript',
       description: 'Deep dive into JavaScript concepts including async programming, closures, and modern ES6+ features.',
+      imagePath: 'assets/images/background1.jpg',
       teacherId: teacher1.id,
     },
   });
@@ -99,6 +200,7 @@ async function main() {
     data: {
       title: 'Database Design',
       description: 'Learn how to design and implement relational databases using SQL and PostgreSQL.',
+      imagePath: 'assets/images/background2.jpg',
       teacherId: teacher2.id,
     },
   });
@@ -107,37 +209,49 @@ async function main() {
     data: {
       title: 'Mobile App Development',
       description: 'Build cross-platform mobile applications using React Native and Flutter.',
+      imagePath: 'assets/images/background4.jpg',
       teacherId: teacher2.id,
     },
   });
 
-  console.log(`✅ Created ${4} courses`);
+  console.log(`✅ Created 4 courses`);
 
-  console.log('📝 Creating enrollments...');
+  console.log('📝 Creating enrollments (will update with completedLessonIds after lessons are created)...');
   
-  await prisma.enrollment.createMany({
-    data: [
-      { studentId: student1.id, courseId: course1.id },
-      { studentId: student1.id, courseId: course2.id },
-      { studentId: student1.id, courseId: course3.id },
-      { studentId: student2.id, courseId: course1.id },
-      { studentId: student2.id, courseId: course4.id },
-      { studentId: student3.id, courseId: course2.id },
-      { studentId: student3.id, courseId: course3.id },
-      { studentId: student3.id, courseId: course4.id },
-    ],
+  const enrollment1 = await prisma.enrollment.create({
+    data: { studentId: student1.id, courseId: course1.id, completedLessonIds: [] },
+  });
+  const enrollment2 = await prisma.enrollment.create({
+    data: { studentId: student1.id, courseId: course2.id, completedLessonIds: [] },
+  });
+  const enrollment3 = await prisma.enrollment.create({
+    data: { studentId: student1.id, courseId: course3.id, completedLessonIds: [] },
+  });
+  const enrollment4 = await prisma.enrollment.create({
+    data: { studentId: student2.id, courseId: course1.id, completedLessonIds: [] },
+  });
+  const enrollment5 = await prisma.enrollment.create({
+    data: { studentId: student2.id, courseId: course4.id, completedLessonIds: [] },
+  });
+  const enrollment6 = await prisma.enrollment.create({
+    data: { studentId: student3.id, courseId: course2.id, completedLessonIds: [] },
+  });
+  const enrollment7 = await prisma.enrollment.create({
+    data: { studentId: student3.id, courseId: course3.id, completedLessonIds: [] },
+  });
+  const enrollment8 = await prisma.enrollment.create({
+    data: { studentId: student3.id, courseId: course4.id, completedLessonIds: [] },
   });
 
-  console.log(`✅ Created ${8} enrollments`);
+  console.log(`✅ Created 8 enrollments`);
 
-  console.log('📖 Creating lessons...');
+  console.log('📖 Creating lessons with assignments...');
   
   const lesson1_1 = await prisma.lesson.create({
     data: {
       title: 'HTML Basics',
       content: 'Learn the structure of HTML documents, tags, attributes, and semantic HTML5 elements.',
-      type: 'lecture',
-      materialFileURL: 'https://example.com/materials/html-basics.pdf',
+      fileId: lessonFile1.id,
       courseId: course1.id,
     },
   });
@@ -146,9 +260,16 @@ async function main() {
     data: {
       title: 'CSS Styling',
       content: 'Master CSS selectors, properties, flexbox, and grid layout for responsive designs.',
-      type: 'lecture',
-      materialFileURL: 'https://example.com/materials/css-styling.pdf',
+      fileId: lessonFile2.id,
       courseId: course1.id,
+      assignment: {
+        create: {
+          title: 'Build a Personal Portfolio',
+          description: 'Create a personal portfolio website using HTML and CSS.',
+          dueDate: new Date('2025-12-15'),
+          maxPoints: 100,
+        },
+      },
     },
   });
 
@@ -156,9 +277,16 @@ async function main() {
     data: {
       title: 'JavaScript Fundamentals',
       content: 'Introduction to JavaScript syntax, variables, functions, and DOM manipulation.',
-      type: 'assignment',
-      materialFileURL: 'https://example.com/materials/js-fundamentals.pdf',
+      fileId: lessonFile3.id,
       courseId: course1.id,
+      assignment: {
+        create: {
+          title: 'Interactive Form Validation',
+          description: 'Implement client-side form validation using JavaScript.',
+          dueDate: new Date('2025-12-20'),
+          maxPoints: 100,
+        },
+      },
     },
   });
 
@@ -166,8 +294,7 @@ async function main() {
     data: {
       title: 'Closures and Scope',
       content: 'Deep understanding of JavaScript closures, lexical scope, and execution context.',
-      type: 'lecture',
-      materialFileURL: 'https://example.com/materials/closures.pdf',
+      fileId: lessonFile4.id,
       courseId: course2.id,
     },
   });
@@ -176,9 +303,16 @@ async function main() {
     data: {
       title: 'Async Programming',
       content: 'Master Promises, async/await, and handling asynchronous operations in JavaScript.',
-      type: 'assignment',
-      materialFileURL: 'https://example.com/materials/async-js.pdf',
+      fileId: lessonFile5.id,
       courseId: course2.id,
+      assignment: {
+        create: {
+          title: 'Promise Chain Exercise',
+          description: 'Create a series of async operations using Promise chains and async/await.',
+          dueDate: new Date('2025-12-18'),
+          maxPoints: 100,
+        },
+      },
     },
   });
 
@@ -186,8 +320,7 @@ async function main() {
     data: {
       title: 'SQL Basics',
       content: 'Learn SQL queries, joins, aggregations, and data manipulation.',
-      type: 'lecture',
-      materialFileURL: 'https://example.com/materials/sql-basics.pdf',
+      fileId: lessonFile6.id,
       courseId: course3.id,
     },
   });
@@ -196,9 +329,16 @@ async function main() {
     data: {
       title: 'Database Normalization',
       content: 'Understanding normal forms and designing efficient database schemas.',
-      type: 'assignment',
-      materialFileURL: 'https://example.com/materials/normalization.pdf',
+      fileId: lessonFile7.id,
       courseId: course3.id,
+      assignment: {
+        create: {
+          title: 'Database Schema Design',
+          description: 'Design a normalized database schema for an e-commerce application.',
+          dueDate: new Date('2025-12-22'),
+          maxPoints: 100,
+        },
+      },
     },
   });
 
@@ -206,73 +346,57 @@ async function main() {
     data: {
       title: 'React Native Basics',
       content: 'Getting started with React Native, components, and styling.',
-      type: 'lecture',
-      materialFileURL: 'https://example.com/materials/rn-basics.pdf',
+      fileId: lessonFile8.id,
       courseId: course4.id,
+      assignment: {
+        create: {
+          title: 'Todo App',
+          description: 'Build a simple Todo application using React Native.',
+          dueDate: new Date('2025-12-25'),
+          maxPoints: 100,
+        },
+      },
     },
   });
 
-  console.log(`✅ Created ${8} lessons`);
+  console.log(`✅ Created 8 lessons with 5 assignments`);
 
-  console.log('📋 Creating assignments...');
+  console.log('📝 Updating enrollments with completed lessons...');
   
-  const assignment1 = await prisma.assignment.create({
-    data: {
-      title: 'Build a Personal Portfolio',
-      description: 'Create a personal portfolio website using HTML and CSS.',
-      dueDate: new Date('2025-12-15'),
-      maxPoints: 100,
-      lessonId: lesson1_2.id,
-    },
+  await prisma.enrollment.update({
+    where: { id: enrollment1.id },
+    data: { completedLessonIds: [lesson1_1.id, lesson1_2.id] },
+  });
+  
+  await prisma.enrollment.update({
+    where: { id: enrollment2.id },
+    data: { completedLessonIds: [lesson2_1.id] },
+  });
+  
+  await prisma.enrollment.update({
+    where: { id: enrollment4.id },
+    data: { completedLessonIds: [lesson1_1.id] },
+  });
+  
+  await prisma.enrollment.update({
+    where: { id: enrollment6.id },
+    data: { completedLessonIds: [lesson2_1.id, lesson2_2.id] },
   });
 
-  const assignment2 = await prisma.assignment.create({
-    data: {
-      title: 'Interactive Form Validation',
-      description: 'Implement client-side form validation using JavaScript.',
-      dueDate: new Date('2025-12-20'),
-      maxPoints: 100,
-      lessonId: lesson1_3.id,
-    },
-  });
-
-  const assignment3 = await prisma.assignment.create({
-    data: {
-      title: 'Promise Chain Exercise',
-      description: 'Create a series of async operations using Promise chains and async/await.',
-      dueDate: new Date('2025-12-18'),
-      maxPoints: 100,
-      lessonId: lesson2_2.id,
-    },
-  });
-
-  const assignment4 = await prisma.assignment.create({
-    data: {
-      title: 'Database Schema Design',
-      description: 'Design a normalized database schema for an e-commerce application.',
-      dueDate: new Date('2025-12-22'),
-      maxPoints: 100,
-      lessonId: lesson3_2.id,
-    },
-  });
-
-  const assignment5 = await prisma.assignment.create({
-    data: {
-      title: 'Todo App',
-      description: 'Build a simple Todo application using React Native.',
-      dueDate: new Date('2025-12-25'),
-      maxPoints: 100,
-      lessonId: lesson4_1.id,
-    },
-  });
-
-  console.log(`✅ Created ${5} assignments`);
+  console.log(`✅ Updated enrollments with completed lessons`);
 
   console.log('📤 Creating submissions...');
+
+  const assignments = await prisma.assignment.findMany();
+  const assignment1 = assignments.find(a => a.title === 'Build a Personal Portfolio')!;
+  const assignment2 = assignments.find(a => a.title === 'Interactive Form Validation')!;
+  const assignment3 = assignments.find(a => a.title === 'Promise Chain Exercise')!;
+  const assignment4 = assignments.find(a => a.title === 'Database Schema Design')!;
   
   await prisma.submission.create({
     data: {
-      submissionFileURL: 'https://github.com/alice/portfolio',
+      fileId: submissionFile1.id,
+      submissionText: 'Here is my portfolio project with responsive design.',
       grade: 95,
       feedback: 'Excellent work! Great design and clean code.',
       studentId: student1.id,
@@ -282,7 +406,7 @@ async function main() {
 
   await prisma.submission.create({
     data: {
-      submissionFileURL: 'https://github.com/bob/portfolio',
+      fileId: submissionFile2.id,
       grade: 88,
       feedback: 'Good work, but could improve on responsive design.',
       studentId: student2.id,
@@ -292,7 +416,8 @@ async function main() {
 
   await prisma.submission.create({
     data: {
-      submissionFileURL: 'https://github.com/alice/form-validation',
+      fileId: submissionFile3.id,
+      submissionText: 'Implemented form validation with email and password checks.',
       studentId: student1.id,
       assignmentId: assignment2.id,
     },
@@ -300,7 +425,7 @@ async function main() {
 
   await prisma.submission.create({
     data: {
-      submissionFileURL: 'https://github.com/charlie/async-exercise',
+      fileId: submissionFile4.id,
       grade: 92,
       feedback: 'Well done! Good understanding of async concepts.',
       studentId: student3.id,
@@ -310,7 +435,7 @@ async function main() {
 
   await prisma.submission.create({
     data: {
-      submissionFileURL: 'https://github.com/alice/db-schema',
+      submissionText: 'Created ER diagram and SQL schema for e-commerce database.',
       studentId: student1.id,
       assignmentId: assignment4.id,
     },
@@ -318,7 +443,8 @@ async function main() {
 
   await prisma.submission.create({
     data: {
-      submissionFileURL: 'https://github.com/charlie/db-schema',
+      fileId: submissionFile5.id,
+      submissionText: 'Database schema with users, products, orders tables.',
       grade: 85,
       feedback: 'Good schema design. Consider adding more indexes for performance.',
       studentId: student3.id,
@@ -326,32 +452,18 @@ async function main() {
     },
   });
 
-  console.log(`✅ Created ${6} submissions`);
-
-  console.log('📁 Creating file metadata...');
-
-  await prisma.fileMetadata.createMany({
-    data: [
-      { fileName: 'html-basics.pdf', fileSize: 1024000, fileType: 'application/pdf' },
-      { fileName: 'css-styling.pdf', fileSize: 2048000, fileType: 'application/pdf' },
-      { fileName: 'js-fundamentals.pdf', fileSize: 1536000, fileType: 'application/pdf' },
-      { fileName: 'intro-video.mp4', fileSize: 50000000, fileType: 'video/mp4' },
-    ],
-  });
-
-  console.log(`✅ Created ${4} file metadata entries`);
+  console.log(`✅ Created 6 submissions`);
 
   console.log('');
   console.log('🎉 Seeding completed successfully!');
   console.log('');
   console.log('📊 Summary:');
   console.log('   - 6 Users (1 Admin, 2 Teachers, 3 Students)');
-  console.log('   - 4 Courses');
-  console.log('   - 8 Enrollments');
-  console.log('   - 8 Lessons');
-  console.log('   - 5 Assignments');
-  console.log('   - 6 Submissions');
-  console.log('   - 4 File Metadata entries');
+  console.log('   - 4 Courses (with imagePath)');
+  console.log('   - 8 Enrollments (with completedLessonIds)');
+  console.log('   - 8 Lessons with 5 Assignments (with file relations)');
+  console.log('   - 6 Submissions (with file relations)');
+  console.log('   - 19 File Metadata entries');
 }
 
 main()

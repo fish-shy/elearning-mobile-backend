@@ -2,7 +2,8 @@ import prisma from '../config/prisma';
 
 export const submissionService = {
   async create(data: {
-    submissionFileURL: string;
+    fileId?: string;
+    submissionText?: string;
     studentId: string;
     assignmentId: string;
   }) {
@@ -98,6 +99,26 @@ export const submissionService = {
     });
   },
 
+  async findByAssignmentIdAndStudentId(assignmentId: string, studentId: string) {
+    return prisma.submission.findMany({
+      where: { assignmentId, studentId },
+      include: {
+        student: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        file: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  },
+  
+
   async findByAssignmentId(assignmentId: string) {
     return prisma.submission.findMany({
       where: { assignmentId },
@@ -148,7 +169,8 @@ export const submissionService = {
   async update(
     id: string,
     data: {
-      submissionFileURL?: string;
+      fileId?: string;
+      submissionText?: string;
       grade?: number;
       feedback?: string;
     }

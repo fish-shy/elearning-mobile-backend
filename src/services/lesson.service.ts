@@ -3,13 +3,22 @@ import prisma from '../config/prisma';
 export const lessonService = {
   async create(data: {
     title: string;
-    content: string;
-    type: string;
-    materialFileURL?: string;
+    content?: string;
+    fileId?: string;
     courseId: string;
+    assignment?: {
+      title: string;
+      description?: string;
+      dueDate?: Date;
+      maxPoints?: number;
+    };
   }) {
+    const { assignment, ...lessonData } = data;
     return prisma.lesson.create({
-      data,
+      data: {
+        ...lessonData,
+        assignment: assignment ? { create: assignment } : undefined,
+      },
       include: {
         course: {
           select: {
@@ -17,6 +26,8 @@ export const lessonService = {
             title: true,
           },
         },
+        file: true,
+        assignment: true,
       },
     });
   },
@@ -30,11 +41,8 @@ export const lessonService = {
             title: true,
           },
         },
-        _count: {
-          select: {
-            assignments: true,
-          },
-        },
+        file: true,
+        assignment: true,
       },
     });
   },
@@ -49,7 +57,22 @@ export const lessonService = {
             title: true,
           },
         },
-        assignments: true,
+        file: true,
+        assignment: {
+          include: {
+            submissions: {
+              include: {
+                student: {
+                  select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   },
@@ -58,11 +81,8 @@ export const lessonService = {
     return prisma.lesson.findMany({
       where: { courseId },
       include: {
-        _count: {
-          select: {
-            assignments: true,
-          },
-        },
+        file: true,
+        assignment: true,
       },
       orderBy: {
         createdAt: 'asc',
@@ -75,8 +95,7 @@ export const lessonService = {
     data: {
       title?: string;
       content?: string;
-      type?: string;
-      materialFileURL?: string;
+      fileId?: string;
     }
   ) {
     return prisma.lesson.update({
@@ -89,11 +108,14 @@ export const lessonService = {
             title: true,
           },
         },
+        file: true,
+        assignment: true,
       },
     });
   },
 
   async delete(id: string) {
+    await prisma.assignment.deleteMany({ where: { lessonId: id } });
     return prisma.lesson.delete({ where: { id } });
   },
 };

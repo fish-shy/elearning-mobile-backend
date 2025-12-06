@@ -11,6 +11,6 @@ router.post('/profile-image', authenticateToken, upload.single('image'), uploadC
 router.post('/course-image', authenticateToken, requireTeacher, upload.single('image'), uploadController.uploadCourseImage);
 router.post('/lesson-content', authenticateToken, requireTeacher, upload.single('file'), uploadController.uploadLessonContent);
 router.post('/submission', authenticateToken, upload.single('file'), uploadController.uploadSubmission);
-router.delete('/', authenticateToken, uploadController.deleteFile);
+router.delete('/:id', authenticateToken, uploadController.deleteFile);
 
 export default router;

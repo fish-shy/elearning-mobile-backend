@@ -4,7 +4,7 @@ import { userService } from '../services/user.service';
 export const userController = {
   async create(req: Request, res: Response) {
     try {
-      const { email, password, name, role, profileImageURL } = req.body;
+      const { email, password, name, role, profileImageId } = req.body;
 
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required' });
@@ -20,7 +20,7 @@ export const userController = {
         password,
         name,
         role,
-        profileImageURL,
+        profileImageId,
       });
 
       res.status(201).json(user);
@@ -59,7 +59,7 @@ export const userController = {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { email, password, name, role, profileImageURL } = req.body;
+      const { email, password, name, role, profileImageId } = req.body;
 
       const existingUser = await userService.findById(id);
       if (!existingUser) {
@@ -71,7 +71,7 @@ export const userController = {
         password,
         name,
         role,
-        profileImageURL,
+        profileImageId,
       });
 
       res.json(user);

@@ -1,4 +1,4 @@
-  // This is your Prisma schema file,
+// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
@@ -20,83 +20,94 @@ enum Role {
 }
 
 model User {
-  id              String         @id @default(uuid())
-  email           String         @unique
-  password        String       
-  name            String?
-  role            Role           @default(STUDENT) 
-  profileImageURL String?        @map("profile_image_url") 
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  taughtCourses   Course[]       @relation("TaughtCourses")     
-  enrollments     Enrollment[]                                
-  submissions     Submission[]                                
+  id             String        @id @default(uuid())
+  email          String        @unique
+  password       String
+  name           String?
+  role           Role          @default(STUDENT)
+  profileImage   FileMetadata? @relation(fields: [profileImageId], references: [id])
+  profileImageId String?    @map("profile_image_id")   
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  taughtCourses  Course[]      @relation("TaughtCourses")
+  enrollments    Enrollment[]
+  submissions    Submission[]
 }
+
 model Course {
-  id              String         @id @default(uuid()) 
-  title           String
-  description     String?  
-  teacher         User           @relation("TaughtCourses", fields: [teacherId], references: [id])
-  teacherId       String        
-  lessons         Lesson[]
-  enrollments     Enrollment[]                                  
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  id          String       @id @default(uuid())
+  title       String
+  description String?
+  teacher     User         @relation("TaughtCourses", fields: [teacherId], references: [id])
+  teacherId   String       @map("teacher_id")
+  lessons     Lesson[]
+  imagePath   String? //ini static dari assets 
+  enrollments Enrollment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Enrollment {
-  id        String    @id @default(uuid())
-  student   User      @relation(fields: [studentId], references: [id])
-  studentId String
-  course    Course    @relation(fields: [courseId], references: [id])
-  courseId  String
-  
-  @@unique([studentId, courseId]) 
+  id                 String   @id @default(uuid())
+  student            User     @relation(fields: [studentId], references: [id])
+  studentId          String   @map("student_id")
+  course             Course   @relation(fields: [courseId], references: [id])
+  courseId           String   @map("course_id")
+  completedLessonIds String[] @map("completed_lesson_ids")
+
+  @@unique([studentId, courseId])
 }
 
 model Lesson {
-  id              String         @id @default(uuid())
-  title           String
-  content         String         
-  materialFileURL String?        @map("material_file_url")
-  course          Course         @relation(fields: [courseId], references: [id])
-  courseId        String
-  type            String // assignment or lecture
-  assignments     Assignment[]                               
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  id         String        @id @default(uuid())
+  title      String
+  content    String?
+  file       FileMetadata? @relation(fields: [fileId], references: [id])
+  fileId     String?       @map("file_id")
+  courseId   String        @map("course_id")
+  course     Course        @relation(fields: [courseId], references: [id])
+  assignment Assignment?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
 }
 
 model Assignment {
-  id          String         @id @default(uuid())
+  id          String       @id @default(uuid())
   title       String
   description String?
-  dueDate     DateTime?
-  maxPoints   Int            @default(100)
-  lesson      Lesson         @relation(fields: [lessonId], references: [id])
-  lessonId    String
-  submissions Submission[]                               
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  dueDate     DateTime?    @map("due_date")
+  maxPoints   Int          @default(100)
+  lessonId    String       @unique @map("lesson_id")
+  lesson      Lesson       @relation(fields: [lessonId], references: [id])
+  submissions Submission[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Submission {
-  id                String         @id @default(uuid())
-  submissionFileURL String         @map("submission_file_url") 
-  grade             Int?                                        
-  feedback          String?                                     
-  student           User           @relation(fields: [studentId], references: [id])
-  studentId         String
-  assignment        Assignment     @relation(fields: [assignmentId], references: [id])
-  assignmentId      String
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
+  id             String        @id @default(uuid())
+  submissionText String?       @map("submission_text")
+  grade          Int?
+  feedback       String?
+  student        User          @relation(fields: [studentId], references: [id])
+  studentId      String        @map("student_id")
+  assignment     Assignment    @relation(fields: [assignmentId], references: [id])
+  assignmentId   String        @map("assignment_id")
+  file           FileMetadata? @relation(fields: [fileId], references: [id])
+  fileId         String?       @map("file_id")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 }
 
-model fileMetadata {
-  id          String    @id @default(uuid())
-  fileName    String    @map("file_name")
-  fileSize    Int       @map("file_size")
-  fileType    String    @map("file_type")
-  uploadedAt  DateTime  @default(now()) @map("uploaded_at")
+model FileMetadata {
+  id          String       @id @default(uuid())
+  fileName    String       @map("file_name")
+  fileSize    Int          @map("file_size")
+  fileType    String       @map("file_type")
+  fileUrl     String       @map("file_url")
+  uploadedAt  DateTime     @default(now()) @map("uploaded_at")
+  submissions Submission[]
+  lessons     Lesson[]
+
+  users User[]
 }

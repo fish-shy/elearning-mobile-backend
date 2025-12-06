@@ -11,15 +11,12 @@ export const authController = {
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required' });
       }
-
       const user = await userService.findByEmail(email);
-
       if (!user || user.password !== password) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
-
       const token = jwt.sign(
-        { id: user.id, email: user.email, role: user.role },
+        { id: user.id, email: user.email},
         JWT_SECRET,
         { expiresIn: '7d' }
       );
@@ -45,7 +42,6 @@ export const authController = {
         password,
         name,
         role: role || 'STUDENT',
-        profileImageURL :"https://th.bing.com/th/id/R.20f9aeb3a5d4530947122ea620351f13?rik=ebj7QoY1q9UIHA&riu=http%3a%2f%2fwww.anime-evo.net%2fwp-content%2fuploads%2f2024%2f07%2fAlya_01_7.jpg&ehk=92PwAmXPHHiIWhzVfVQG39gBnu7B9MPZNjCZP427IGM%3d&risl=&pid=ImgRaw&r=0",
       });
       const token = jwt.sign(
         { id: user.id, email: user.email, role: user.role },

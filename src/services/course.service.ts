@@ -1,9 +1,10 @@
-import prisma from '../config/prisma';
+import prisma from "../config/prisma";
 
 export const courseService = {
   async create(data: {
     title: string;
     description?: string;
+    imagePath?: string;
     teacherId: string;
   }) {
     return prisma.course.create({
@@ -34,6 +35,29 @@ export const courseService = {
           select: {
             lessons: true,
             enrollments: true,
+          },
+        },
+      },
+    });
+  },
+
+  async findAllByStudentId(studentId: string) {
+    return prisma.course.findMany({
+      where: {
+        enrollments: {
+          some: { studentId },
+        },
+      },
+      include: {
+        enrollments: {
+          where: { studentId },
+          select: {
+            completedLessonIds: true,
+          },
+        },
+        lessons: {
+          select: {
+            id: true,
           },
         },
       },
@@ -86,6 +110,7 @@ export const courseService = {
     data: {
       title?: string;
       description?: string;
+      imagePath?: string;
     }
   ) {
     return prisma.course.update({
