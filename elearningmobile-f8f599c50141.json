@@ -1,13 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "elearningmobile",
-  "private_key_id": "f8f599c501414376ac44ad4809ba33f3e19364b8",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDVghbMpuimRYC6\nQT0avxoUT7wH2FDck2+mK3ZXa1IIJMkxfXlfg5IMSXbx2bjaB8225lAtCJSBX33M\nMh3PT0B/7EkeOrRgBwxs2pMtT2O5jm1Hjg1vUjie3eW38lmyc/5ymj06XICT2LGC\nudRrrQ8rL7qgONrIaKJaUkPeTSY88qLcafuXsmXQG29G5yr+LqXgBf00QzrJDEpB\n4nXrLCy9fZ6O1DXR/ToHWt4b4O0z79c4lbpHzERGi2TTuX6OpdgBDpVEkLZYG8qw\nMyoN6+bco/1KPe0M3urJb1Kd6yt+LvUdv7kqnaCbAVDUuvcVqQnAObckL6VK36d2\nMe3/4x2RAgMBAAECggEAInbsXT64IVboz6gGSBH/ELZKQO3vJ5v5EtbDNJtTU5M0\nkvORKxTe93LIa4Pcrf1CfLqyyIIxDq0ubk7MtxEw9TVcHDAXu8SHge7KgS7mhyZx\nh3JrwsN/9k0VbtsFFaRZt4AkUA5shvEcvmBm5La70xnSQ1jKID2br37GC9ViTcYF\nfQ9Fq+I8sw9EMKst+IhxyKp7xbjfdfRV/dGdogWWvKJl1d5fnUFyH826L3TmyI5y\n/EPVnNV0MUvGMwuPh8mb456BwsuApUe75MkqunLK2puKEghkxyqsd+GKumVga5Zz\nbHiT0plfhCf6dPdkas1wXEfUAJWqyLRW+7NtyQK1XQKBgQDtpb+55syYAEIqGkCw\nfOxz6dozwU0udIY9k4tcTpxyQSmDaxPluwsUZLm8qaZX2bovP7qwKqK9hEHdko59\nZo+bgEIs3nGXeQc7QQnKPgOFVxm44yq9dL+2OsNRYXj/qdUCgTFbxQkl58HK0rjF\nyh8LIlA0rHcvv2EejmGy6jeNQwKBgQDl/xw3NYiyXPo5GcpZmfShTEnU0UwFumG0\nQSoURbsAfNVddlx04YNnWnjQyXCEVFkLxnQmGInivrTjBWcNXlyQ7XEe07ZBk+7/\n2YOl2l+NmjJJsDeJhyXFo/FFgK8uWNfnEhDcwFIyHWu+g3nrWwehmmYUIoxohFQS\nw/00a1iymwKBgD1Ax5YnAvz6tBMeCSZ0TI3j7LYCUN50clVUvkrgiDp6yTRyWQKR\nn112SNlz8Mgb+n1LM9dMZf3rJP7zU37G/KTb/jKKc0TTkSWYselK6qVnud2Jz+5d\nNTzHEKjdMs7S+3BV1F8O/jii77RTdASnADFiesHY4i+QaHvzvwLak875AoGBAICS\nKBfE2XG8ADVDcZa9Nb+lgfByP+lD07KMaxWCFZOkNTJWJEFCf86bCMbOlROkg1LN\n0cgqF4qlyUDPmFgk0+JAmef9ufjW1dg4pBtnA9uIw2vmEmXTIw5lI08TLNrf13HY\n64w8Brb1M3IA1Xr4HD/+q+m9lngm4UjMPxO6no7ZAoGBALsix4UVdAHmlGRxJTUZ\nQ6A/KOAWfXc0UmOb8x2Xio7LdKgha1zV0uLwwIzy4MslZ9Rr/KvtMVBUdkYmN2yb\nTO0ontGbdtdtpzCcCQYbIIUr/jxT1kH1xSs1uEmCSuAeKkDmN86rEfKebYekfmLF\nA23WwGY4s6IoYnuvbSeLnTSM\n-----END PRIVATE KEY-----\n",
-  "client_email": "storage-admin@elearningmobile.iam.gserviceaccount.com",
-  "client_id": "111225911796501656605",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storage-admin%40elearningmobile.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+add your creds here
