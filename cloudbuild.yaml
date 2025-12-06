@@ -24,5 +24,8 @@ steps:
       - '--set-env-vars'
       - 'NODE_ENV=production'
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+  
 images:
   - 'gcr.io/$PROJECT_ID/mobile-backend'
