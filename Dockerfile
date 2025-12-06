@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma ./prisma/
-ENV NODE_ENV=production
 # 1. Install dependencies normal
 RUN npm install
 
@@ -20,4 +19,7 @@ COPY . .
 # 4. Build (Sekarang tsc pasti ditemukan)
 RUN npm run build
 
+
+ENV NODE_ENV=production
+ENV PORT=8080
 CMD [ "npm", "start" ]
