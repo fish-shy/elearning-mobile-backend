@@ -34,6 +34,16 @@ export const courseController = {
       res.status(500).json({ error: 'Failed to fetch student courses' });
     }
   },
+  async getStudentCoursesByParams(req: any, res: Response) {
+    try{
+      const { userId }= req.params;
+      const courses = await courseService.findAllByStudentId(userId);
+      res.json(courses);
+    }catch(error){
+      console.error('Error fetching student courses:', error);
+      res.status(500).json({ error: 'Failed to fetch student courses' });
+    }
+  },
 
   async findAll(req: Request, res: Response) {
     try {
@@ -61,7 +71,17 @@ export const courseController = {
     }
   },
 
-  async findByTeacherId(req: Request, res: Response) {
+  async findByTeacherId(req: any, res: Response) {
+    try {
+      const teacherId = req.user?.id;
+      const courses = await courseService.findByTeacherId(teacherId);
+      res.json(courses);
+    } catch (error) {
+      console.error('Error fetching teacher courses:', error);
+      res.status(500).json({ error: 'Failed to fetch teacher courses' });
+    }
+  },
+    async findByTeacherIdByParams(req: Request, res: Response) {
     try {
       const { teacherId } = req.params;
       const courses = await courseService.findByTeacherId(teacherId);
