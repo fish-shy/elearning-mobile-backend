@@ -18,12 +18,16 @@ export const submissionService = {
           },
         },
         assignment: {
-          select: {
-            id: true,
-            title: true,
-            maxPoints: true,
+          include: {
+            lesson: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
           },
         },
+        file: true,
       },
     });
   },
@@ -39,12 +43,16 @@ export const submissionService = {
           },
         },
         assignment: {
-          select: {
-            id: true,
-            title: true,
-            maxPoints: true,
+          include: {
+            lesson: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
           },
         },
+        file: true,
       },
     });
   },
@@ -76,6 +84,7 @@ export const submissionService = {
             },
           },
         },
+        file: true,
       },
     });
   },
@@ -85,13 +94,16 @@ export const submissionService = {
       where: { studentId },
       include: {
         assignment: {
-          select: {
-            id: true,
-            title: true,
-            maxPoints: true,
-            dueDate: true,
+          include: {
+            lesson: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
           },
         },
+        file: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -100,7 +112,7 @@ export const submissionService = {
   },
 
   async findByAssignmentIdAndStudentId(assignmentId: string, studentId: string) {
-    return prisma.submission.findMany({
+    return prisma.submission.findFirst({
       where: { assignmentId, studentId },
       include: {
         student: {
@@ -128,6 +140,7 @@ export const submissionService = {
             id: true,
             name: true,
             email: true,
+            profileImage: true,
           },
         },
       },
@@ -156,12 +169,16 @@ export const submissionService = {
           },
         },
         assignment: {
-          select: {
-            id: true,
-            title: true,
-            maxPoints: true,
+          include: {
+            lesson: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
           },
         },
+        file: true,
       },
     });
   },
@@ -187,12 +204,16 @@ export const submissionService = {
           },
         },
         assignment: {
-          select: {
-            id: true,
-            title: true,
-            maxPoints: true,
+          include: {
+            lesson: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
           },
         },
+        file: true,
       },
     });
   },

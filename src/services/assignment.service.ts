@@ -2,8 +2,6 @@ import prisma from '../config/prisma';
 
 export const assignmentService = {
   async create(data: {
-    title: string;
-    description?: string;
     dueDate?: Date;
     maxPoints?: number;
     lessonId: string;
@@ -122,8 +120,6 @@ export const assignmentService = {
   async update(
     id: string,
     data: {
-      title?: string;
-      description?: string;
       dueDate?: Date;
       maxPoints?: number;
     }

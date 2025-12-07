@@ -83,10 +83,22 @@ export const submissionController = {
     }
   },
 
-  async findByAssignmentAndStudentId(req: any, res: Response) {
+  async findByAssignmentAndStudent(req: any, res: Response) {
     try {
       const userId = req.user?.id;
       const { assignmentId } = req.params;
+      const submissions = await submissionService.findByAssignmentIdAndStudentId(assignmentId, userId);
+      res.json(submissions);
+      console.log(submissions);
+    } catch (error) {
+      console.error('Error fetching assignment submissions:', error);
+      res.status(500).json({ error: 'Failed to fetch assignment submissions' });
+    }
+  },
+
+   async findByAssignmentAndStudentId(req: any, res: Response) {
+    try {
+      const { assignmentId, userId } = req.params;
       const submissions = await submissionService.findByAssignmentIdAndStudentId(assignmentId, userId);
       console.log(submissions);
       res.json(submissions);

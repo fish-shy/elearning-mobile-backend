@@ -30,7 +30,37 @@ export const userController = {
     }
   },
 
+  async updateProfile(req: any, res: Response) {
+    try {
+      const userId = req.user?.id;
+      const { name, profileImageId } = req.body;
+      const existingUser = await userService.findById(userId);
+      if (!existingUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      const user = await userService.update(userId, {
+        name,
+        profileImageId,
+      });
+
+      res.json(user);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      res.status(500).json({ error: 'Failed to update profile' });
+    }
+  },
+
   async findAll(req: Request, res: Response) {
+    try {
+      const users = await userService.findAll();
+      res.json(users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ error: 'Failed to fetch users' });
+    }
+  },
+
+   async findAllTeacher(req: Request, res: Response) {
     try {
       const users = await userService.findAll();
       res.json(users);

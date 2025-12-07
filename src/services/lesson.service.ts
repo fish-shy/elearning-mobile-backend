@@ -7,8 +7,6 @@ export const lessonService = {
     fileId?: string;
     courseId: string;
     assignment?: {
-      title: string;
-      description?: string;
       dueDate?: Date;
       maxPoints?: number;
     };

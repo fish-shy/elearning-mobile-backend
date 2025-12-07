@@ -166,7 +166,7 @@ async function main() {
 
   const admin = await prisma.user.create({
     data: {
-      email: 'admin@school.com',
+      email: 'superAdmin@gmail.com',
       password: 'admin123',
       name: 'Admin User',
       role: Role.ADMIN,
@@ -264,8 +264,6 @@ async function main() {
       courseId: course1.id,
       assignment: {
         create: {
-          title: 'Build a Personal Portfolio',
-          description: 'Create a personal portfolio website using HTML and CSS.',
           dueDate: new Date('2025-12-15'),
           maxPoints: 100,
         },
@@ -281,8 +279,6 @@ async function main() {
       courseId: course1.id,
       assignment: {
         create: {
-          title: 'Interactive Form Validation',
-          description: 'Implement client-side form validation using JavaScript.',
           dueDate: new Date('2025-12-20'),
           maxPoints: 100,
         },
@@ -307,8 +303,6 @@ async function main() {
       courseId: course2.id,
       assignment: {
         create: {
-          title: 'Promise Chain Exercise',
-          description: 'Create a series of async operations using Promise chains and async/await.',
           dueDate: new Date('2025-12-18'),
           maxPoints: 100,
         },
@@ -333,8 +327,6 @@ async function main() {
       courseId: course3.id,
       assignment: {
         create: {
-          title: 'Database Schema Design',
-          description: 'Design a normalized database schema for an e-commerce application.',
           dueDate: new Date('2025-12-22'),
           maxPoints: 100,
         },
@@ -350,8 +342,6 @@ async function main() {
       courseId: course4.id,
       assignment: {
         create: {
-          title: 'Todo App',
-          description: 'Build a simple Todo application using React Native.',
           dueDate: new Date('2025-12-25'),
           maxPoints: 100,
         },
@@ -387,11 +377,10 @@ async function main() {
 
   console.log('📤 Creating submissions...');
 
-  const assignments = await prisma.assignment.findMany();
-  const assignment1 = assignments.find(a => a.title === 'Build a Personal Portfolio')!;
-  const assignment2 = assignments.find(a => a.title === 'Interactive Form Validation')!;
-  const assignment3 = assignments.find(a => a.title === 'Promise Chain Exercise')!;
-  const assignment4 = assignments.find(a => a.title === 'Database Schema Design')!;
+  const assignment1 = await prisma.assignment.findUnique({ where: { lessonId: lesson1_2.id } });
+  const assignment2 = await prisma.assignment.findUnique({ where: { lessonId: lesson1_3.id } });
+  const assignment3 = await prisma.assignment.findUnique({ where: { lessonId: lesson2_2.id } });
+  const assignment4 = await prisma.assignment.findUnique({ where: { lessonId: lesson3_2.id } });
   
   await prisma.submission.create({
     data: {
@@ -400,7 +389,7 @@ async function main() {
       grade: 95,
       feedback: 'Excellent work! Great design and clean code.',
       studentId: student1.id,
-      assignmentId: assignment1.id,
+      assignmentId: assignment1!.id,
     },
   });
 
@@ -410,7 +399,7 @@ async function main() {
       grade: 88,
       feedback: 'Good work, but could improve on responsive design.',
       studentId: student2.id,
-      assignmentId: assignment1.id,
+      assignmentId: assignment1!.id,
     },
   });
 
@@ -419,7 +408,7 @@ async function main() {
       fileId: submissionFile3.id,
       submissionText: 'Implemented form validation with email and password checks.',
       studentId: student1.id,
-      assignmentId: assignment2.id,
+      assignmentId: assignment2!.id,
     },
   });
 
@@ -429,7 +418,7 @@ async function main() {
       grade: 92,
       feedback: 'Well done! Good understanding of async concepts.',
       studentId: student3.id,
-      assignmentId: assignment3.id,
+      assignmentId: assignment3!.id,
     },
   });
 
@@ -437,7 +426,7 @@ async function main() {
     data: {
       submissionText: 'Created ER diagram and SQL schema for e-commerce database.',
       studentId: student1.id,
-      assignmentId: assignment4.id,
+      assignmentId: assignment4!.id,
     },
   });
 
@@ -448,7 +437,7 @@ async function main() {
       grade: 85,
       feedback: 'Good schema design. Consider adding more indexes for performance.',
       studentId: student3.id,
-      assignmentId: assignment4.id,
+      assignmentId: assignment4!.id,
     },
   });
 

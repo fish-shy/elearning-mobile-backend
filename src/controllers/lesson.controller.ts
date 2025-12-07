@@ -19,13 +19,11 @@ export const lessonController = {
 
       if (assignment) {
         lessonData.assignment = {
-          title: assignment.title,
-          description: assignment.description,
           dueDate: assignment.dueDate ? new Date(assignment.dueDate) : undefined,
           maxPoints: assignment.maxPoints,
         };
       }
-
+      console.log('Creating lesson with data:', lessonData);
       const lesson = await lessonService.create(lessonData);
       res.status(201).json(lesson);
     } catch (error) {

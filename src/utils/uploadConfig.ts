@@ -4,7 +4,7 @@ import path from "path";
 
 const storage = new Storage({
   projectId: process.env.GCS_PROJECT_ID,
-  // keyFilename: process.env.GCS_KEYFILE_PATH,
+  keyFilename: process.env.GCS_KEYFILE_PATH,
 });
 
 const bucketName = process.env.GCS_BUCKET_NAME || "my-app-uploads";

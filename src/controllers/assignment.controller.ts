@@ -4,15 +4,13 @@ import { assignmentService } from '../services/assignment.service';
 export const assignmentController = {
   async create(req: Request, res: Response) {
     try {
-      const { title, description, dueDate, maxPoints, lessonId } = req.body;
+      const { dueDate, maxPoints, lessonId } = req.body;
 
-      if (!title || !lessonId) {
-        return res.status(400).json({ error: 'Title and lessonId are required' });
+      if (!lessonId) {
+        return res.status(400).json({ error: 'lessonId is required' });
       }
 
       const assignment = await assignmentService.create({
-        title,
-        description,
         dueDate: dueDate ? new Date(dueDate) : undefined,
         maxPoints,
         lessonId,
@@ -84,7 +82,7 @@ export const assignmentController = {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { title, description, dueDate, maxPoints } = req.body;
+      const { dueDate, maxPoints } = req.body;
 
       const existingAssignment = await assignmentService.findById(id);
       if (!existingAssignment) {
@@ -92,8 +90,6 @@ export const assignmentController = {
       }
 
       const assignment = await assignmentService.update(id, {
-        title,
-        description,
         dueDate: dueDate ? new Date(dueDate) : undefined,
         maxPoints,
       });

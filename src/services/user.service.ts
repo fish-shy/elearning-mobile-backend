@@ -27,6 +27,24 @@ export const userService = {
     });
   },
 
+  async findAllTeacher() {
+    return prisma.user.findMany({
+      where: {
+        role: 'TEACHER',
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        profileImageId: true,
+        profileImage: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+  },
+
   async findById(id: string) {
     return prisma.user.findUnique({
       where: { id },

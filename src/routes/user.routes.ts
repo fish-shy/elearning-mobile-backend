@@ -5,7 +5,9 @@ import { authenticateToken, requireAdmin } from '../middleware';
 const router = Router();
 
 router.post('/', authenticateToken, requireAdmin, userController.create);
-router.get('/', authenticateToken, userController.findAll);
+router.get('/', authenticateToken, requireAdmin, userController.findAll);
+router.put('/profile', authenticateToken, userController.updateProfile);
+router.get('/teachers', authenticateToken, requireAdmin, userController.findAllTeacher);
 router.get('/:id', authenticateToken, userController.findById);
 router.put('/:id', authenticateToken, userController.update);
 router.delete('/:id', authenticateToken, requireAdmin, userController.delete);
