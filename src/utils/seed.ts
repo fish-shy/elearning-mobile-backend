@@ -13,14 +13,12 @@ async function main() {
   await prisma.user.deleteMany();
   await prisma.fileMetadata.deleteMany();
 
-  console.log('📁 Creating file metadata...');
-
   const profileImage1 = await prisma.fileMetadata.create({
     data: {
       fileName: 'john-avatar.png',
       fileSize: 50000,
       fileType: 'image/png',
-      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john',
+      fileUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW1xVs0ZXIIj3WR2jHaomuNISah-WUuzGEig&s',
     },
   });
 
@@ -29,7 +27,7 @@ async function main() {
       fileName: 'jane-avatar.png',
       fileSize: 50000,
       fileType: 'image/png',
-      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jane',
+      fileUrl: 'https://media.assettype.com/analyticsinsight/2025-05-16/3ppd14b9/Hopeless-in-Love-5-Clueless-Anime-Characters-1.jpg',
     },
   });
 
@@ -38,7 +36,7 @@ async function main() {
       fileName: 'alice-avatar.png',
       fileSize: 50000,
       fileType: 'image/png',
-      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=alice',
+      fileUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV3yK9mXtkZ5m8SgQDZErj9Voyt9o5Zy6OPg&s',
     },
   });
 
@@ -56,7 +54,7 @@ async function main() {
       fileName: 'charlie-avatar.png',
       fileSize: 50000,
       fileType: 'image/png',
-      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=charlie',
+      fileUrl: 'https://m.media-amazon.com/images/I/71GqitTQacL._AC_UF894,1000_QL80_.jpg',
     },
   });
 
@@ -65,49 +63,49 @@ async function main() {
       fileName: 'admin-avatar.png',
       fileSize: 50000,
       fileType: 'image/png',
-      fileUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=admin',
+      fileUrl: 'https://img.buzzfeed.com/buzzfeed-static/static/2025-05/14/19/subbuzz/-hr6go9k1.png?downsize=900:*&output-format=auto&output-quality=auto',
     },
   });
 
   const lessonFile1 = await prisma.fileMetadata.create({
-    data: { fileName: 'html-basics.pdf', fileSize: 1024000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/html-basics.pdf' },
+    data: { fileName: 'html-basics.pdf', fileSize: 1024000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile2 = await prisma.fileMetadata.create({
-    data: { fileName: 'css-styling.pdf', fileSize: 2048000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/css-styling.pdf' },
+    data: { fileName: 'css-styling.pdf', fileSize: 2048000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile3 = await prisma.fileMetadata.create({
-    data: { fileName: 'js-fundamentals.pdf', fileSize: 1536000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/js-fundamentals.pdf' },
+    data: { fileName: 'js-fundamentals.pdf', fileSize: 1536000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile4 = await prisma.fileMetadata.create({
-    data: { fileName: 'closures.pdf', fileSize: 1200000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/closures.pdf' },
+    data: { fileName: 'closures.pdf', fileSize: 1200000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile5 = await prisma.fileMetadata.create({
-    data: { fileName: 'async-js.pdf', fileSize: 1800000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/async-js.pdf' },
+    data: { fileName: 'async-js.pdf', fileSize: 1800000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile6 = await prisma.fileMetadata.create({
-    data: { fileName: 'sql-basics.pdf', fileSize: 1400000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/sql-basics.pdf' },
+    data: { fileName: 'sql-basics.pdf', fileSize: 1400000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile7 = await prisma.fileMetadata.create({
-    data: { fileName: 'normalization.pdf', fileSize: 1600000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/normalization.pdf' },
+    data: { fileName: 'normalization.pdf', fileSize: 1600000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const lessonFile8 = await prisma.fileMetadata.create({
-    data: { fileName: 'rn-basics.pdf', fileSize: 2200000, fileType: 'application/pdf', fileUrl: 'https://example.com/materials/rn-basics.pdf' },
+    data: { fileName: 'rn-basics.pdf', fileSize: 2200000, fileType: 'application/pdf', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
 
   const submissionFile1 = await prisma.fileMetadata.create({
-    data: { fileName: 'alice-portfolio.zip', fileSize: 5000000, fileType: 'application/zip', fileUrl: 'https://github.com/alice/portfolio' },
+    data: { fileName: 'alice-portfolio.zip', fileSize: 5000000, fileType: 'application/zip', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const submissionFile2 = await prisma.fileMetadata.create({
-    data: { fileName: 'bob-portfolio.zip', fileSize: 4500000, fileType: 'application/zip', fileUrl: 'https://github.com/bob/portfolio' },
+    data: { fileName: 'bob-portfolio.zip', fileSize: 4500000, fileType: 'application/zip', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const submissionFile3 = await prisma.fileMetadata.create({
-    data: { fileName: 'alice-form-validation.zip', fileSize: 3000000, fileType: 'application/zip', fileUrl: 'https://github.com/alice/form-validation' },
+    data: { fileName: 'alice-form-validation.zip', fileSize: 3000000, fileType: 'application/zip', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const submissionFile4 = await prisma.fileMetadata.create({
-    data: { fileName: 'charlie-async-exercise.zip', fileSize: 2500000, fileType: 'application/zip', fileUrl: 'https://github.com/charlie/async-exercise' },
+    data: { fileName: 'charlie-async-exercise.zip', fileSize: 2500000, fileType: 'application/zip', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
   const submissionFile5 = await prisma.fileMetadata.create({
-    data: { fileName: 'charlie-db-schema.zip', fileSize: 1500000, fileType: 'application/zip', fileUrl: 'https://github.com/charlie/db-schema' },
+    data: { fileName: 'charlie-db-schema.zip', fileSize: 1500000, fileType: 'application/zip', fileUrl: 'https://storage.googleapis.com/elearning-uploads-prod/uploads/Materi_UAS_Visi_Komputer[1].pdf' },
   });
 
   console.log(`✅ Created file metadata entries`);
