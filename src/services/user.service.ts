@@ -11,7 +11,6 @@ export const userService = {
   }) {
     return prisma.user.create({ data });
   },
-
   async findAll() {
     return prisma.user.findMany({
       select: {
@@ -26,7 +25,12 @@ export const userService = {
       },
     });
   },
-
+  async addFcmToken(userId: string, fcmToken: string) {
+    return prisma.user.update({
+      where: { id: userId },
+      data: { fcmToken },
+    });
+  },
   async findAllTeacher() {
     return prisma.user.findMany({
       where: {

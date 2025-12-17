@@ -24,9 +24,10 @@ model User {
   email          String        @unique
   password       String
   name           String?
+  fcmToken       String?       @map("fcm_token")
   role           Role          @default(STUDENT)
   profileImage   FileMetadata? @relation(fields: [profileImageId], references: [id])
-  profileImageId String?    @map("profile_image_id")   
+  profileImageId String?       @map("profile_image_id")   
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   taughtCourses  Course[]      @relation("TaughtCourses")

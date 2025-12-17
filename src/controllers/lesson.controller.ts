@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import { lessonService } from '../services/lesson.service';
+import admin from '../config/firebase';
+
 
 export const lessonController = {
-  async create(req: Request, res: Response) {
+async create(req: Request, res: Response) {
     try {
       const { title, content, fileId, courseId, assignment } = req.body;
-
       if (!title || !courseId) {
         return res.status(400).json({ error: 'Title and courseId are required' });
       }
@@ -23,9 +24,40 @@ export const lessonController = {
           maxPoints: assignment.maxPoints,
         };
       }
-      console.log('Creating lesson with data:', lessonData);
+
       const lesson = await lessonService.create(lessonData);
+
+
+      try {
+        const courseData = await lessonService.searchToken(courseId);
+        if (courseData) {
+          const tokens : string[] = courseData.enrollments
+            .map(e  => e.student.fcmToken)
+            .filter((token): token is string => token !== null && token !== "");
+          if (tokens.length > 0) {
+            const messagePayload = {
+              notification: {
+                title: `Materi Baru: ${courseData.title}`,
+                body: `${courseData.teacher.name} baru saja mengupload materi "${title}". Cek sekarang!`,
+              },
+              data: {
+                type: 'LESSON_NEW',
+                lessonId: lesson.id, 
+                courseId: courseId,
+                click_action: 'FLUTTER_NOTIFICATION_CLICK'
+              },
+              tokens: tokens,
+            };
+            
+            const sendResponse = await admin.messaging().sendEachForMulticast(messagePayload);
+            console.log(`Notifikasi terkirim: ${sendResponse.successCount} sukses, ${sendResponse.failureCount} gagal.`);
+          }
+        }
+      } catch (notifError) {
+        console.error('Gagal mengirim notifikasi:', notifError);
+      }
       res.status(201).json(lesson);
+
     } catch (error) {
       console.error('Error creating lesson:', error);
       res.status(500).json({ error: 'Failed to create lesson' });

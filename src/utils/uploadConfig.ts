@@ -74,7 +74,6 @@ export const uploadToGCS = (
 
     blobStream.on("finish", async () => {
       try {
-        // await blob.makePublic();
         const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
         resolve(publicUrl);
       } catch (err: any) {

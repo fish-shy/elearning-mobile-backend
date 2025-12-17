@@ -1,4 +1,4 @@
-import prisma from '../config/prisma';
+import prisma from "../config/prisma";
 
 export const lessonService = {
   async create(data: {
@@ -11,7 +11,7 @@ export const lessonService = {
       maxPoints?: number;
     };
   }) {
-    const { assignment, ...lessonData } = data;
+  const { assignment, ...lessonData } = data;
     return prisma.lesson.create({
       data: {
         ...lessonData,
@@ -30,6 +30,24 @@ export const lessonService = {
     });
   },
 
+  async searchToken(courseId: string) {
+    return prisma.course.findUnique({
+      where: { id: courseId },
+      select: {
+        teacher: {
+          select: {  name: true, }
+        },
+        title: true,
+        enrollments: {
+          select: {
+            student: {
+              select: { fcmToken: true }, // Ambil token saja
+            },
+          },
+        },
+      },
+    });
+  },
   async findAll() {
     return prisma.lesson.findMany({
       include: {
@@ -83,7 +101,7 @@ export const lessonService = {
         assignment: true,
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: "asc",
       },
     });
   },

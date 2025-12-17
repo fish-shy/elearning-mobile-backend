@@ -2,12 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import routes from './routes';
 import { corsMiddleware, requestLogger, errorHandler, notFoundHandler } from './middleware';
-
+// 👇 TAMBAHKAN INI AGAR FIREBASE CONNECT SAAT SERVER NYALA
+import './config/firebase';
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-
 app.use(corsMiddleware);
 app.use(requestLogger);
 app.use(express.json());

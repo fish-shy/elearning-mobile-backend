@@ -7,7 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 export const authController = {
   async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
+      const { email, password, fcmToken } = req.body;
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required' });
       }
@@ -20,6 +20,10 @@ export const authController = {
         JWT_SECRET,
         { expiresIn: '7d' }
       );
+      console.log('FCM Token received during login:', fcmToken);
+      if(fcmToken){
+        await userService.addFcmToken(user.id, fcmToken);  
+      }
       res.status(200).json({ message: 'Login successful', user, token });
     } catch (error) {
       console.error('Error during login:', error);
@@ -37,6 +41,8 @@ export const authController = {
       if (existingUser) {
         return res.status(409).json({ error: 'Email already exists' });
       }
+      const hashPassword = password; 
+
       const user = await userService.create({
         email,
         password,

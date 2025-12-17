@@ -121,12 +121,10 @@ export const courseController = {
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
-
       const existingCourse = await courseService.findById(id);
       if (!existingCourse) {
         return res.status(404).json({ error: 'Course not found' });
       }
-
       await courseService.delete(id);
       res.status(204).send();
     } catch (error) {
